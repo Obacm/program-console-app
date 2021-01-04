@@ -51,6 +51,7 @@
 <script>
 import { getNotice, saveNotice } from '@/api'
 import WangEditor from '@/components/WangEditor'
+import Computed from '@/components/Computed'
 
 export default {
   name: 'notice-editor',
@@ -58,6 +59,7 @@ export default {
     title: '公告编辑',
     titleTemplate: '%s | 中康智慧药箱'
   },
+  ...Computed,
   data() {
     return {
       labelCol: { span: 4 },
@@ -172,11 +174,6 @@ export default {
     },
     onCancel() {
       this.$router.go(-1)
-    }
-  },
-  computed: {
-    spinning() {
-      return this.$store.getters.spinning
     }
   }
 }

@@ -78,12 +78,15 @@ import {
   getDrugs
 } from '@/api'
 
+import Computed from '@/components/Computed'
+
 export default {
   name: 'medicine',
   metaInfo: {
     title: '活动药品管理',
     titleTemplate: '%s | 中康智慧药箱'
   },
+  ...Computed,
   data() {
     return {
       data: [],
@@ -221,11 +224,6 @@ export default {
     setSelectedRowKeysEmpty() {
       this.selectedRowKeys = []
       return this
-    }
-  },
-  computed: {
-    spinning() {
-      return this.$store.getters.spinning
     }
   },
   watch: {

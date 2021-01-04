@@ -48,6 +48,7 @@
 <script>
 import { getCustomer, saveCustomer } from '@/api'
 import WangEditor from '@/components/WangEditor'
+import Computed from '@/components/Computed'
 
 export default {
   name: 'customer',
@@ -55,6 +56,7 @@ export default {
     title: '售后客服',
     titleTemplate: '%s | 中康智慧药箱'
   },
+  ...Computed,
   data() {
     return {
       labelCol: { span: 4 },
@@ -140,11 +142,6 @@ export default {
     },
     updateContent(content) {
       this.form.content = content
-    }
-  },
-  computed: {
-    spinning() {
-      return this.$store.getters.spinning
     }
   }
 }

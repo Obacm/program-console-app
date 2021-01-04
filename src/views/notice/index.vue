@@ -45,6 +45,7 @@
 
 <script>
 import { getNotices, offNotices, putNotices, deleteNotices } from '@/api'
+import Computed from '@/components/Computed'
 
 export default {
   name: 'notice',
@@ -52,6 +53,7 @@ export default {
     title: '公告管理',
     titleTemplate: '%s | 中康智慧药箱'
   },
+  ...Computed,
   data() {
     return {
       data: [],
@@ -170,11 +172,6 @@ export default {
           console.log('Cancel')
         }
       })
-    }
-  },
-  computed: {
-    spinning() {
-      return this.$store.getters.spinning
     }
   },
   watch: {

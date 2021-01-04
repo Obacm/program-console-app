@@ -47,6 +47,7 @@
 <script>
 import { getGroup, saveGroup } from '@/api'
 import WangEditor from '@/components/WangEditor'
+import Computed from '@/components/Computed'
 
 export default {
   name: 'group',
@@ -54,6 +55,7 @@ export default {
     title: '集团管理',
     titleTemplate: '%s | 中康智慧药箱'
   },
+  ...Computed,
   data() {
     return {
       labelCol: { span: 4 },
@@ -141,11 +143,6 @@ export default {
     },
     updateContent(content) {
       this.form.groupContent = content
-    }
-  },
-  computed: {
-    spinning() {
-      return this.$store.getters.spinning
     }
   }
 }

@@ -197,12 +197,15 @@ import {
   saveActivity
 } from '@/api'
 
+import Computed from '@/components/Computed'
+
 export default {
   name: 'home',
   metaInfo: {
     title: '活动管理',
     titleTemplate: '%s | 中康智慧药箱'
   },
+  ...Computed,
   data() {
     return {
       data: [],
@@ -504,11 +507,6 @@ export default {
         status: 'done',
         url: url
       })
-    }
-  },
-  computed: {
-    spinning() {
-      return this.$store.getters.spinning
     }
   },
   watch: {
