@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import { getDoctor, saveDoctor } from '../../api'
-import WangEditor from '../../components/WangEditor'
+import { getDoctor, saveDoctor } from '@/api'
+import WangEditor from '@/components/WangEditor'
 
 export default {
   name: 'doctor',

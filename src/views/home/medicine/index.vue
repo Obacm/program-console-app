@@ -124,7 +124,7 @@ import {
   getMedicines,
   getCities,
   getDrugs
-} from '../../../api'
+} from '@/api'
 
 export default {
   name: 'medicine',

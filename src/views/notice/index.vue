@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getNotices, offNotices, putNotices, deleteNotices } from '../../api'
+import { getNotices, offNotices, putNotices, deleteNotices } from '@/api'
 
 export default {
   name: 'notice',

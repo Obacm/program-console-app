@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { menus } from './router'
+import { menus } from '@/router'
 export default {
   data() {
     return {

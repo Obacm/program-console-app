@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { login } from '../../api'
+import { login } from '@/api'
 import md5 from 'js-md5'
 
 export default {

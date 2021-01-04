@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getModules, offModules, putModules, deleteModules } from '../../api'
+import { getModules, offModules, putModules, deleteModules } from '@/api'
 
 export default {
   name: 'module',

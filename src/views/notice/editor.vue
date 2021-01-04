@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import { getNotice, saveNotice } from '../../api'
-import WangEditor from '../../components/WangEditor'
+import { getNotice, saveNotice } from '@/api'
+import WangEditor from '@/components/WangEditor'
 
 export default {
   name: 'notice-editor',

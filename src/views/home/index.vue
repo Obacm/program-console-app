@@ -195,7 +195,7 @@ import {
   deleteActivities,
   getActivity,
   saveActivity
-} from '../../api'
+} from '@/api'
 
 export default {
   name: 'home',

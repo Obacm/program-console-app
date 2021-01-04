@@ -76,7 +76,7 @@ import {
   saveActivityDrug,
   getDrugCategories,
   getDrugs
-} from '../../../api'
+} from '@/api'
 
 export default {
   name: 'medicine',

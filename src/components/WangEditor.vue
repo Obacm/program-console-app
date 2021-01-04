@@ -6,7 +6,7 @@
 
 <script>
 import wangEditor from 'wangeditor'
-import { uploadUrl } from '../api'
+import { uploadUrl } from '@/api'
 
 export default {
   name: 'wang-editor',

@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import { getModule, saveModule } from '../../api'
-import WangEditor from '../../components/WangEditor'
+import { getModule, saveModule } from '@/api'
+import WangEditor from '@/components/WangEditor'
 
 export default {
   name: 'module-editor',

@@ -2,9 +2,9 @@
  * axios 请求和响应拦截、 请求封装
  */
 
-import { baseURL, webURL } from '../config'
+import { baseURL, webURL } from '@/config'
 import axios from 'axios'
-import store from '../store'
+import store from '@/store'
 
 var instance = axios.create({
   headers: {

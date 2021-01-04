@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import { getGroup, saveGroup } from '../../api'
-import WangEditor from '../../components/WangEditor'
+import { getGroup, saveGroup } from '@/api'
+import WangEditor from '@/components/WangEditor'
 
 export default {
   name: 'group',

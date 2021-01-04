@@ -1,7 +1,7 @@
 /**
  * 历史状态管理
  */
-import { storage } from '../../common/utils/storage'
+import { storage } from '@/common/utils/storage'
 
 // 定义状态
 const state = {
