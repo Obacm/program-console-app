@@ -1,6 +1,6 @@
 const path = require('path')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
@@ -17,22 +17,7 @@ module.exports = {
       }
     }
   },
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.resolve.alias.set('@$', resolve('src'))
   }
-  // configureWebpack: {
-  //   externals: {
-  //     vue: 'Vue',
-  //     'vue-router': 'VueRouter',
-  //     vuex: 'Vuex',
-  //     axios: 'axios'
-  //   },
-  //   css: [],
-  //   js: [
-  //     '//cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
-  //     '//cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js',
-  //     '//cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.min.js',
-  //     '//cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js'
-  //   ]
-  // }
 }

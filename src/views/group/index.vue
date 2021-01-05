@@ -32,7 +32,6 @@
           ref="editor"
           :content="form.groupContent"
           @update-content="updateContent"
-          v-if="isReset"
         ></wang-editor>
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
@@ -75,8 +74,7 @@ export default {
         ]
       },
       fileList: [],
-      isUpdate: false,
-      isReset: false
+      isUpdate: false
     }
   },
   components: {
@@ -100,7 +98,6 @@ export default {
           url: response.data.groupBanner
         })
       }
-      this.isReset = true
     },
     onSave() {
       this.$refs.ruleForm.validate(async valid => {

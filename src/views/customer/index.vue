@@ -35,7 +35,6 @@
           ref="editor"
           :content="form.content"
           @update-content="updateContent"
-          v-if="isReset"
         ></wang-editor>
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
@@ -73,8 +72,7 @@ export default {
         tel: [{ required: true, message: '电话不能为空', trigger: 'blur' }],
         content: [{ required: true, message: '内容不能为空', trigger: 'blur' }]
       },
-      fileList: [],
-      isReset: false
+      fileList: []
     }
   },
   components: {
@@ -99,7 +97,6 @@ export default {
           url: response.data.banner
         })
       }
-      this.isReset = true
     },
     onSave() {
       this.$refs.ruleForm.validate(valid => {

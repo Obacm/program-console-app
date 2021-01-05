@@ -32,7 +32,6 @@
           ref="editor"
           :content="form.content"
           @update-content="updateContent"
-          v-if="isReset"
         ></wang-editor>
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
@@ -75,8 +74,7 @@ export default {
         content: [{ required: true, message: '内容不能为空', trigger: 'blur' }]
       },
       fileList: [],
-      isUpdate: false,
-      isReset: false
+      isUpdate: false
     }
   },
   components: {
@@ -88,7 +86,6 @@ export default {
       this.getModule(this.$route.query.id)
     } else {
       this.isUpdate = false
-      this.isReset = true
     }
   },
   methods: {
@@ -105,7 +102,6 @@ export default {
           url: response.data.bannerUrl
         })
       }
-      this.isReset = true
     },
     onSave() {
       this.$refs.ruleForm.validate(valid => {
