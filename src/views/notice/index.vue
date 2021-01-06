@@ -159,6 +159,7 @@ export default {
           onOk: async () => {
             let response = await deleteNotices(this.selectedRowIds)
             if (response.code == 200) {
+              this.setSelectedRowKeysEmpty()
               this.getNotices()
               this.$message.success('删除成功')
             }
@@ -187,6 +188,10 @@ export default {
           console.log('Cancel')
         }
       })
+    },
+    setSelectedRowKeysEmpty() {
+      this.selectedRowKeys = []
+      return this
     }
   },
   watch: {
