@@ -1,45 +1,60 @@
 <template>
   <div>
-    <div class="table-operator">
-      <a-button type="primary" @click="onNavigationSave">新增</a-button>
-      <a-button type="default" class="button-left" @click="onNavigationUpdate"
-        >修改</a-button
-      >
-      <a-button type="danger" class="button-left" @click="onAnyDelete"
-        >删除</a-button
-      >
+    <div v-if="$route.meta.visible">
+      <div class="table-operator">
+        <a-button type="primary" @click="onNavigationSave">新增</a-button>
+        <a-button type="default" class="button-left" @click="onNavigationUpdate"
+          >修改</a-button
+        >
+        <a-button
+          class="button-left"
+          @click="onAnyOff"
+          style="background-color: #ffc107; color: #fff"
+          >下架</a-button
+        >
+        <a-button
+          class="button-left"
+          @click="onAnyPut"
+          style="background-color: #28a745; color: #fff"
+          >上架</a-button
+        >
+        <a-button type="danger" class="button-left" @click="onAnyDelete"
+          >删除</a-button
+        >
+      </div>
+      <a-spin :spinning="spinning">
+        <a-table
+          :row-selection="{
+            selectedRowKeys: selectedRowKeys,
+            onChange: onSelectChange
+          }"
+          rowKey="id"
+          :data-source="data"
+          :pagination="false"
+          bordered
+        >
+          <a-table-column title="公告标题" data-index="title"></a-table-column>
+          <a-table-column title="公告Banner" data-index="bannerUrl">
+            <template slot-scope="bannerUrl">
+              <span>
+                <img :src="bannerUrl" class="banner" />
+              </span>
+            </template>
+          </a-table-column>
+          <a-table-column
+            title="创建日期"
+            data-index="createDate"
+          ></a-table-column>
+          <a-table-column title="状态" data-index="status">
+            <template slot-scope="status">
+              <span v-if="status === 1" style="color: #28a745">已上架</span>
+              <span v-if="status === 2" style="color: #ffc107">已下架</span>
+            </template>
+          </a-table-column>
+        </a-table>
+      </a-spin>
     </div>
-    <a-spin :spinning="spinning">
-      <a-table
-        :row-selection="{
-          selectedRowKeys: selectedRowKeys,
-          onChange: onSelectChange
-        }"
-        rowKey="id"
-        :data-source="data"
-        :pagination="false"
-        bordered
-      >
-        <a-table-column title="公告标题" data-index="title"></a-table-column>
-        <a-table-column title="公告Banner" data-index="bannerUrl">
-          <template slot-scope="bannerUrl">
-            <span>
-              <img :src="bannerUrl" class="banner" />
-            </span>
-          </template>
-        </a-table-column>
-        <a-table-column title="上架/下架" data-index="status">
-          <template slot-scope="status">
-            <a-button type="danger" v-if="status === 1" @click="onAnyOff">
-              下架
-            </a-button>
-            <a-button type="primary" v-else @click="onAnyPut">
-              上架
-            </a-button>
-          </template>
-        </a-table-column>
-      </a-table>
-    </a-spin>
+    <router-view else />
   </div>
 </template>
 

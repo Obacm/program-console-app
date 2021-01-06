@@ -1,69 +1,71 @@
 <template>
-  <div id="app">
-    <a-layout
-      id="components-layout-demo-top-side-2"
-      v-if="$router.currentRoute.name !== 'Login'"
+  <a-layout
+    id="components-layout-demo-top-side-2"
+    v-if="$router.currentRoute.name !== 'Login'"
+  >
+    <a-layout-header
+      class="header"
+      style="background: #fff; height:75px; border-bottom-style: inset"
     >
-      <a-layout-header
-        class="header"
-        style="background: #fff; height:75px; border-bottom-style: inset"
+      <div class="logo" />
+    </a-layout-header>
+    <a-layout>
+      <a-layout-sider
+        width="200"
+        style="background: #fff"
+        :style="{ overflow: 'auto', height: '100vh' }"
       >
-        <div class="logo" />
-      </a-layout-header>
-      <a-layout>
-        <a-layout-sider
-          width="200"
-          style="background: #fff"
-          :style="{ overflow: 'auto', height: '100vh' }"
+        <a-menu
+          mode="inline"
+          :default-selected-keys="[index]"
+          :default-open-keys="['sub']"
+          :style="{ height: '100%', borderRight: 0 }"
         >
-          <a-menu
-            mode="inline"
-            :default-selected-keys="[index]"
-            :default-open-keys="['sub']"
-            :style="{ height: '100%', borderRight: 0 }"
-          >
-            <a-sub-menu key="sub">
-              <span slot="title"><a-icon type="minus" />首页配置</span>
-              <a-menu-item
-                :key="index + 1"
-                v-for="(item, index) in items"
-                @click="setName(item.describe)"
-              >
-                <router-link :to="item.path">{{ item.describe }}</router-link>
-              </a-menu-item>
-            </a-sub-menu>
-          </a-menu>
-        </a-layout-sider>
-        <a-layout style="padding: 0 24px 24px">
-          <a-breadcrumb separator="" style="margin: 16px 0">
-            <a-breadcrumb-item>当前位置</a-breadcrumb-item>
-            <a-breadcrumb-separator>:</a-breadcrumb-separator>
-            <a-breadcrumb-item>
-              首页配置
-            </a-breadcrumb-item>
-            <a-breadcrumb-separator v-if="name">></a-breadcrumb-separator>
-            <a-breadcrumb-item>
-              {{ name }}
-            </a-breadcrumb-item>
-            <a-breadcrumb-separator v-if="name && next"
-              >></a-breadcrumb-separator
+          <a-sub-menu key="sub">
+            <span slot="title"><a-icon type="minus" />首页配置</span>
+            <a-menu-item
+              :key="index + 1"
+              v-for="(route, index) in routes"
+              @click="setHistories(route, true)"
             >
-            <a-breadcrumb-item>
-              {{ next }}
-            </a-breadcrumb-item>
-          </a-breadcrumb>
+              <router-link :to="route.path">{{ route.meta.name }}</router-link>
+            </a-menu-item>
+          </a-sub-menu>
+        </a-menu>
+      </a-layout-sider>
+      <a-layout style="padding: 0 24px 24px">
+        <a-breadcrumb separator="" style="margin: 16px 0">
+          <a-breadcrumb-item>当前位置</a-breadcrumb-item>
+          <a-breadcrumb-separator>:</a-breadcrumb-separator>
+          <a-breadcrumb-item>
+            首页配置
+          </a-breadcrumb-item>
 
-          <a-layout-content
-            :style="{ background: '#fff', padding: '15px', flex: 'initial' }"
-          >
-            <router-view />
-          </a-layout-content>
-        </a-layout>
+          <template v-for="(history, index) in histories">
+            <a-breadcrumb-separator :key="index">></a-breadcrumb-separator>
+            <a-breadcrumb-item :key="index">
+              <router-link
+                :to="history.path"
+                @click.native="
+                  setHistories(history, index === 0 ? true : false)
+                "
+              >
+                {{ history.meta.name }}
+              </router-link>
+            </a-breadcrumb-item>
+          </template>
+        </a-breadcrumb>
+
+        <a-layout-content
+          :style="{ background: '#fff', padding: '15px', flex: 'initial' }"
+        >
+          <router-view />
+        </a-layout-content>
       </a-layout>
     </a-layout>
-    <div v-else>
-      <router-view />
-    </div>
+  </a-layout>
+  <div v-else>
+    <router-view />
   </div>
 </template>
 
@@ -73,28 +75,41 @@ export default {
   data() {
     return {
       collapsed: false,
-      items: [],
+      routes: [],
       menus: []
     }
   },
   created() {
-    this.items = menus
-    this.menus = this.items.map(item => item.describe)
+    this.routes = menus
+    this.menus = this.routes.map(item => item.meta.name)
   },
   methods: {
-    setName(describe) {
-      this.$store.commit('SET_NAME', describe)
+    setHistories(history, type) {
+      this.$store.commit('SET_HOSTORIES', { history: history, type: type })
     }
   },
   computed: {
-    name() {
-      return this.$store.getters.name
+    histories() {
+      return this.$store.getters.histories
     },
     index() {
-      return this.menus.indexOf(this.name) + 1
-    },
-    next() {
-      return this.$store.getters.next
+      if (this.histories instanceof Array) {
+        if (this.histories.length > 0) {
+          return this.menus.indexOf(this.histories[0].meta.name) + 1
+        }
+      }
+
+      this.setHistories(
+        {
+          path: `/`,
+          meta: {
+            name: '活动管理'
+          }
+        },
+        true
+      )
+
+      return 1
     }
   }
 }

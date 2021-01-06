@@ -32,7 +32,14 @@
         <a-table-column title="药箱编号">
           <template slot-scope="text, item">
             <router-link
-              @click.native="setNext(item.medicineNo)"
+              @click.native="
+                setHistories({
+                  path: `/drug?activityId=${item.activityId}&medicineNo=${item.medicineNo}`,
+                  meta: {
+                    name: item.medicineNo
+                  }
+                })
+              "
               :to="{
                 path: 'drug',
                 query: {
@@ -166,8 +173,8 @@ export default {
     this.getActivityMedicines()
   },
   methods: {
-    setNext(describe) {
-      this.$store.commit('SET_NEXT', describe)
+    setHistories(history) {
+      this.$store.commit('SET_HOSTORIES', { history: history, type: false })
     },
     async getActivityMedicines() {
       let response = await getActivityMedicines({

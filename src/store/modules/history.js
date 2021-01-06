@@ -1,46 +1,54 @@
 /**
  * 历史状态管理
  */
+
 import { storage } from '@/common/utils/storage'
 
 // 定义状态
 const state = {
-  name: null,
-  next: null
+  histories: []
 }
 
 // 获取状态
 const getters = {
-  name: state => {
-    return state.name ? state.name : storage.get('name')
-  },
-  next: state => {
-    return state.next ? state.next : storage.get('next')
+  histories: state => {
+    return state.histories ? JSON.parse(storage.get('histories')) : []
   }
 }
 
 // 提交 mutation
 const actions = {
-  setName: ({ commit }, name) => {
-    commit('SET_NAME', name)
-    commit('SET_NEXT', '')
-  },
-  setNext: ({ commit }, next) => {
-    commit('SET_NEXT', next)
+  setHistories: ({ commit }, history) => {
+    commit('SET_HOSTORIES', history)
   }
 }
 
 // 变更状态
 const mutations = {
-  SET_NAME: (state, name) => {
-    state.name = name
-    state.next = null
-    storage.set('name', name)
-    storage.remove('next')
-  },
-  SET_NEXT: (state, next) => {
-    state.next = next
-    storage.set('next', next)
+  SET_HOSTORIES: (state, payload) => {
+    if (payload.type) {
+      state.histories = []
+    }
+
+    let length = state.histories.length
+    if (length > 0) {
+      let index = state.histories.findIndex(item => {
+        return item.path === payload.history.path
+      })
+
+      if (index < 0) {
+        state.histories.push(payload.history)
+        storage.set('histories', JSON.stringify(state.histories))
+      } else {
+        if (index < length) {
+          state.histories.splice(index + 1, length - index)
+          storage.set('histories', JSON.stringify(state.histories))
+        }
+      }
+    } else {
+      state.histories.push(payload.history)
+      storage.set('histories', JSON.stringify(state.histories))
+    }
   }
 }
 

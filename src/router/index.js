@@ -7,37 +7,97 @@ const menus = [
   {
     path: '/',
     name: 'Home',
-    describe: '活动管理',
-    component: () => import('@/views/home')
+    meta: {
+      name: '活动管理',
+      visible: true
+    },
+    component: () => import('@/views/home'),
+    children: [
+      {
+        path: 'medicine',
+        name: 'Medicine',
+        meta: {
+          name: '药箱管理',
+          visible: false
+        },
+        component: () => import('@/views/home/medicine')
+      },
+      {
+        path: 'drug',
+        name: 'Drug',
+        meta: {
+          name: '药品管理',
+          visible: false
+        },
+        component: () => import('@/views/home/drug')
+      }
+    ]
   },
   {
     path: '/module',
     name: 'Module',
-    describe: '模块管理',
-    component: () => import('@/views/module')
+    meta: {
+      name: '模块管理',
+      visible: true
+    },
+    component: () => import('@/views/module'),
+    children: [
+      {
+        path: '/module-editor',
+        name: 'ModuleEditor',
+        meta: {
+          name: '模块新增',
+          visible: false
+        },
+        component: () => import('@/views/module/editor')
+      }
+    ]
   },
   {
     path: '/notice',
     name: 'Notice',
-    describe: '公告管理',
-    component: () => import('@/views/notice')
+    meta: {
+      name: '公告管理',
+      visible: true
+    },
+    component: () => import('@/views/notice'),
+    children: [
+      {
+        path: '/notice-editor',
+        name: 'NoticeEditor',
+        meta: {
+          name: '公告管理',
+          visible: false
+        },
+        component: () => import('@/views/notice/editor')
+      }
+    ]
   },
   {
     path: '/group',
     name: 'Group',
-    describe: '集团管理',
+    meta: {
+      name: '集团管理',
+      visible: true
+    },
     component: () => import('@/views/group')
   },
   {
     path: '/doctor',
     name: 'Doctor',
-    describe: '药师咨询',
+    meta: {
+      name: '药师咨询',
+      visible: true
+    },
     component: () => import('@/views/doctor')
   },
   {
     path: '/customer',
     name: 'Customer',
-    describe: '售后客服',
+    meta: {
+      name: '售后客服',
+      visible: true
+    },
     component: () => import('@/views/customer')
   }
 ]
@@ -46,32 +106,11 @@ const routers = [
   {
     path: '/login',
     name: 'Login',
-    describe: '登陆',
+    meta: {
+      name: '登陆',
+      visible: true
+    },
     component: () => import('@/views/login')
-  },
-  {
-    path: '/medicine',
-    name: 'Medicine',
-    describe: '药箱管理',
-    component: () => import('@/views/home/medicine')
-  },
-  {
-    path: '/drug',
-    name: 'Drug',
-    describe: '药品管理',
-    component: () => import('@/views/home/drug')
-  },
-  {
-    path: '/module-editor',
-    name: 'ModuleEditor',
-    describe: '模块新增',
-    component: () => import('@/views/module/editor')
-  },
-  {
-    path: '/notice-editor',
-    name: 'NoticeEditor',
-    describe: '公告新增',
-    component: () => import('@/views/notice/editor')
   }
 ]
 

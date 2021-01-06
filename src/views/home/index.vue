@@ -1,189 +1,123 @@
 <template>
   <div>
-    <div class="table-operator">
-      <a-button type="primary" @click="onModelSave">新增</a-button>
-      <a-button type="default" class="button-left" @click="onActivityModal"
-        >修改</a-button
+    <div v-if="$route.meta.visible">
+      <div class="table-operator">
+        <a-button type="primary" @click="onModelSave">新增</a-button>
+        <a-button type="default" class="button-left" @click="onActivityModal"
+          >修改</a-button
+        >
+        <a-button
+          class="button-left"
+          @click="onAnyOff"
+          style="background-color: #ffc107; color: #fff"
+          >下架</a-button
+        >
+        <a-button
+          class="button-left"
+          @click="onAnyPut"
+          style="background-color: #28a745; color: #fff"
+          >上架</a-button
+        >
+        <a-button type="danger" class="button-left" @click="onAnyDelete"
+          >删除</a-button
+        >
+      </div>
+      <a-spin :spinning="spinning">
+        <a-table
+          :row-selection="{
+            selectedRowKeys: selectedRowKeys,
+            onChange: onSelectChange
+          }"
+          rowKey="activityId"
+          :data-source="data"
+          :pagination="false"
+          bordered
+        >
+          <a-table-column
+            title="活动名称"
+            data-index="activityName"
+          ></a-table-column>
+          <a-table-column title="活动Banner" data-index="activityBanner">
+            <template slot-scope="activityBanner">
+              <span>
+                <img :src="activityBanner" class="banner" />
+              </span>
+            </template>
+          </a-table-column>
+          <a-table-column
+            title="创建日期"
+            data-index="createDate"
+          ></a-table-column>
+          <a-table-column title="状态" data-index="status">
+            <template slot-scope="status">
+              <span v-if="status === 0" style="color: #28a745">已上架</span>
+              <span v-if="status === 1" style="color: #ffc107">已下架</span>
+            </template>
+          </a-table-column>
+          <a-table-column title="操作">
+            <template slot-scope="text, item">
+              <router-link
+                @click.native="
+                  setHistories({
+                    path: `/medicine?activityId=${item.activityId}`,
+                    meta: {
+                      name: item.activityName
+                    }
+                  })
+                "
+                :to="{
+                  path: '/medicine',
+                  query: { activityId: item.activityId }
+                }"
+              >
+                查看
+              </router-link>
+            </template>
+          </a-table-column>
+        </a-table>
+      </a-spin>
+      <a-modal
+        :title="isAction ? '编辑活动' : '新增活动'"
+        :visible="visible"
+        :confirm-loading="confirmLoading"
+        okText="确定"
+        cancelText="取消"
+        @ok="handleOk"
+        @cancel="handleCancel"
       >
-      <a-button
-        class="button-left"
-        @click="onAnyOff"
-        style="background-color: #ffc107; color: #fff"
-        >下架</a-button
-      >
-      <a-button
-        class="button-left"
-        @click="onAnyPut"
-        style="background-color: #28a745; color: #fff"
-        >上架</a-button
-      >
-      <a-button type="danger" class="button-left" @click="onAnyDelete"
-        >删除</a-button
-      >
+        <a-form-model ref="ruleForm" :model="form" :rules="rules">
+          <a-form-model-item
+            ref="activityName"
+            label="活动名称"
+            prop="activityName"
+          >
+            <a-input v-model="form.activityName" placeholder="请输入活动名称" />
+          </a-form-model-item>
+          <a-form-model-item
+            ref="activityBanner"
+            label="Banner"
+            prop="activityBanner"
+          >
+            <a-upload
+              :action="uploadURL"
+              :file-list="fileList"
+              :multiple="false"
+              :withCredentials="true"
+              :remove="handleRemove"
+              :beforeUpload="handleBeforeUpload"
+              name="wechatFile"
+              @change="handleChange"
+              list-type="picture"
+              accept="image/png, image/jpeg"
+              class="upload-list-inline"
+            >
+              <a-button> <a-icon type="upload" /> 上传 </a-button>
+            </a-upload>
+          </a-form-model-item>
+        </a-form-model>
+      </a-modal>
     </div>
-    <a-spin :spinning="spinning">
-      <a-table
-        :row-selection="{
-          selectedRowKeys: selectedRowKeys,
-          onChange: onSelectChange
-        }"
-        rowKey="activityId"
-        :data-source="data"
-        :pagination="false"
-        bordered
-      >
-        <a-table-column
-          title="活动名称"
-          data-index="activityName"
-        ></a-table-column>
-        <a-table-column title="活动Banner" data-index="activityBanner">
-          <template slot-scope="activityBanner">
-            <span>
-              <img :src="activityBanner" class="banner" />
-            </span>
-          </template>
-        </a-table-column>
-        <a-table-column
-          title="创建日期"
-          data-index="createDate"
-        ></a-table-column>
-        <a-table-column title="状态" data-index="status">
-          <template slot-scope="status">
-            <span v-if="status === 0" style="color: #28a745">已上架</span>
-            <span v-if="status === 1" style="color: #ffc107">已下架</span>
-          </template>
-        </a-table-column>
-        <a-table-column title="操作" data-index="activityId">
-          <template slot-scope="activityId">
-            <router-link
-              :to="{ path: 'medicine', query: { activityId: activityId } }"
-            >
-              查看
-            </router-link>
-          </template>
-        </a-table-column>
-      </a-table>
-    </a-spin>
-    <a-modal
-      title="新增活动"
-      :visible="visible"
-      :confirm-loading="confirmLoading"
-      okText="确定"
-      cancelText="取消"
-      @ok="handleOk"
-      @cancel="handleCancel"
-    >
-      <a-form-model ref="ruleForm" :model="form" :rules="rules">
-        <a-form-model-item label="选择活动模块">
-          <a-select
-            v-model="form.activityName"
-            style="width: 210px;"
-            placeholder="请选择活动模块"
-            @change="handleActivityName"
-            :loading="loading"
-          >
-            <a-select-option
-              v-for="activity in _.uniq(activities)"
-              :key="activity.activityName"
-            >
-              {{ activity.activityName }}
-            </a-select-option>
-          </a-select>
-          <a-button
-            type="primary"
-            style="margin-left: 15px"
-            @click="showOtherModal"
-          >
-            新增
-          </a-button>
-        </a-form-model-item>
-        <a-form-model-item
-          ref="activityBanner"
-          label="Banner"
-          prop="activityBanner"
-        >
-          <a-upload
-            :action="uploadURL"
-            :file-list="fileList"
-            :multiple="false"
-            :withCredentials="true"
-            :remove="handleRemove"
-            :beforeUpload="handleBeforeUpload"
-            name="wechatFile"
-            @change="handleChange"
-            list-type="picture"
-            accept="image/png, image/jpeg"
-            class="upload-list-inline"
-          >
-            <a-button> <a-icon type="upload" /> 上传 </a-button>
-          </a-upload>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
-    <a-modal
-      title="添加活动名称"
-      :visible="visibleOther"
-      okText="确定"
-      cancelText="取消"
-      @ok="handleOtherOk"
-      @cancel="handleOtherCancel"
-    >
-      <a-form-model-item label="活动名称">
-        <a-input v-model="activityName" placeholder="请输入活动名称" />
-      </a-form-model-item>
-    </a-modal>
-    <a-modal
-      title="编辑活动"
-      :visible="visibleSave"
-      :confirm-loading="confirmLoading"
-      okText="确定"
-      cancelText="取消"
-      @ok="handleSaveOk"
-      @cancel="handleSaveCancel"
-    >
-      <a-form-model ref="ruleForm" :model="form" :rules="rules">
-        <a-form-model-item
-          ref="activityName"
-          label="活动名称"
-          prop="activityName"
-        >
-          <a-input v-model="form.activityName" placeholder="请输入活动名称" />
-        </a-form-model-item>
-        <a-form-model-item
-          ref="activityBanner"
-          label="Banner"
-          prop="activityBanner"
-        >
-          <a-upload
-            :action="uploadURL"
-            :file-list="fileList"
-            :multiple="false"
-            :withCredentials="true"
-            :remove="handleRemove"
-            :beforeUpload="handleBeforeUpload"
-            name="wechatFile"
-            @change="handleChange"
-            list-type="picture"
-            accept="image/png, image/jpeg"
-            class="upload-list-inline"
-          >
-            <a-button> <a-icon type="upload" /> 上传 </a-button>
-          </a-upload>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
-    <a-modal
-      title="添加活动名称"
-      :visible="visibleOther"
-      okText="确定"
-      cancelText="取消"
-      @ok="handleOtherOk"
-      @cancel="handleOtherCancel"
-    >
-      <a-form-model-item label="活动名称">
-        <a-input v-model="activityName" placeholder="请输入活动名称" />
-      </a-form-model-item>
-    </a-modal>
+    <router-view else />
   </div>
 </template>
 
@@ -213,8 +147,6 @@ export default {
       selectedRowIds: [],
       fileList: [],
       visible: false,
-      visibleOther: false,
-      visibleSave: false,
       confirmLoading: false,
       loading: true,
       loadingMedicine: true,
@@ -222,7 +154,6 @@ export default {
       cities: [],
       medicines: [],
       activities: [],
-      activityName: '',
       isAction: false,
       form: {
         activityId: '',
@@ -239,14 +170,10 @@ export default {
   },
   created() {
     this.getActivities()
-    this.setName('活动管理')
   },
   methods: {
-    setName(describe) {
-      this.$store.commit('SET_NAME', describe)
-    },
-    setNext(describe) {
-      this.$store.commit('SET_NEXT', describe)
+    setHistories(history) {
+      this.$store.commit('SET_HOSTORIES', { history: history, type: false })
     },
     async getActivities() {
       let response = await getActivities()
@@ -353,19 +280,13 @@ export default {
     showModal() {
       this.visible = true
     },
-    showSaveModal() {
-      this.visibleSave = true
-    },
-    showOtherModal() {
-      this.visibleOther = true
-    },
     onActivityModal() {
       if (this.selectedRowKeys.length === 1) {
         this.setIsAction(true)
           .setFormEmpty()
           .setFileListEmpty()
         this.getActivity(this.selectedRowIds[0])
-        this.showSaveModal()
+        this.showModal()
       } else {
         this.$message.warning('请选择一条修改')
       }
@@ -415,49 +336,8 @@ export default {
         }
       })
     },
-    handleSaveOk() {
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          this.$confirm({
-            title: '确定提交？',
-            content: '您即将提交一个活动',
-            okText: '确定',
-            cancelText: '取消',
-            onOk: async () => {
-              let response = await saveActivity(this.form)
-
-              if (response.code == 'HAVE_SAME_ACTIVITY') {
-                this.$message.warning(response.message)
-              }
-
-              if (response.code == 200) {
-                this.$message.success('保存成功')
-                this.visibleSave = false
-                this.getActivities()
-              }
-            },
-            onCancel: () => {
-              console.log('Cancel')
-            }
-          })
-        }
-      })
-    },
     handleCancel() {
       this.visible = false
-    },
-    handleOtherOk() {
-      this.activities.push({
-        activityName: this.activityName,
-        activityBanner: null
-      })
-      this.visibleOther = false
-    },
-    handleSaveCancel() {
-      this.visibleSave = false
-    },
-    handleOtherCancel() {
-      this.visibleOther = false
     },
     handleBeforeUpload(file, fileList) {
       if (this.fileList.length >= 1) {
