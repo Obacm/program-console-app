@@ -227,7 +227,7 @@ export default {
             }
           },
           onCancel: () => {
-            console.log('Cancel')
+            //
           }
         })
       } else {
@@ -258,7 +258,7 @@ export default {
             }
           },
           onCancel: () => {
-            console.log('Cancel')
+            //
           }
         })
       } else {
@@ -281,7 +281,7 @@ export default {
             }
           },
           onCancel: () => {
-            console.log('Cancel')
+            //
           }
         })
       } else {
@@ -345,7 +345,7 @@ export default {
           }
         },
         onCancel: () => {
-          console.log('Cancel')
+          //
         }
       })
     },

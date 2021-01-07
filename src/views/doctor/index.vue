@@ -113,14 +113,13 @@ export default {
               }
             },
             onCancel: () => {
-              console.log('Cancel')
+              //
             }
           })
         }
       })
     },
     handleBeforeUpload(file, fileList) {
-      console.log(this.fileList)
       if (this.fileList.length >= 1) {
         this.$message.warning('只能上传一张图片')
         return Promise.reject(false)

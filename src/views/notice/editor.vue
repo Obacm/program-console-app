@@ -36,10 +36,7 @@
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
         <a-button @click="onCancel">取消</a-button>
-        <a-button
-          style="margin-left: 10px"
-          type="primary"
-          @click="isUpdate ? onUpdate() : onSave()"
+        <a-button style="margin-left: 10px" type="primary" @click="isUpdate ? onUpdate() : onSave()"
           >确定</a-button
         >
       </a-form-model-item>
@@ -81,7 +78,6 @@ export default {
     WangEditor
   },
   mounted() {
-    console.log(this.$router)
     if (this.$route.query.id) {
       this.isUpdate = true
       this.getNotice(this.$route.query.id)
@@ -120,7 +116,7 @@ export default {
               }
             },
             onCancel: () => {
-              console.log('Cancel')
+              //
             }
           })
         }
@@ -142,7 +138,7 @@ export default {
               }
             },
             onCancel: () => {
-              console.log('Cancel')
+              //
             }
           })
         }

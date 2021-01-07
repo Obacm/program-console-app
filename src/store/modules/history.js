@@ -12,9 +12,7 @@ const state = {
 // 获取状态
 const getters = {
   histories: state => {
-    return state.histories
-      ? state.histories
-      : JSON.parse(storage.get('histories'))
+    return state.histories ? state.histories : JSON.parse(storage.get('histories'))
   }
 }
 

@@ -115,7 +115,7 @@ export default {
               }
             },
             onCancel: () => {
-              console.log('Cancel')
+              //
             }
           })
         }
@@ -137,7 +137,7 @@ export default {
               }
             },
             onCancel: () => {
-              console.log('Cancel')
+              //
             }
           })
         }
