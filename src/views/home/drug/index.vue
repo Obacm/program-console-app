@@ -196,6 +196,7 @@ export default {
       this.visible = false
     },
     handleCategoryChange(drugTypeId) {
+      this.setSelectedDrugsEmpty()
       this.getDrugs(drugTypeId)
     },
     handleDrugChange(drugNos) {

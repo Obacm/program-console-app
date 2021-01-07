@@ -303,6 +303,7 @@ export default {
       this.getCities(2, id)
     },
     handleCityChange(name) {
+      this.setSelectedMedicinesEmpty()
       // 根据市名获取市ID
       let city = this.cities.find(item => {
         return item.name === name
