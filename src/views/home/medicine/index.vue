@@ -2,21 +2,13 @@
   <div>
     <div class="table-operator">
       <a-button type="primary" @click="onModelSave">新增</a-button>
-      <a-button
-        class="button-left"
-        @click="onAnyOff"
-        style="background-color: #ffc107; color: #fff"
+      <a-button class="button-left" @click="onAnyOff" style="background-color: #ffc107; color: #fff"
         >下架</a-button
       >
-      <a-button
-        class="button-left"
-        @click="onAnyPut"
-        style="background-color: #28a745; color: #fff"
+      <a-button class="button-left" @click="onAnyPut" style="background-color: #28a745; color: #fff"
         >上架</a-button
       >
-      <a-button type="danger" class="button-left" @click="onAnyDelete"
-        >删除</a-button
-      >
+      <a-button type="danger" class="button-left" @click="onAnyDelete">删除</a-button>
     </div>
     <a-spin :spinning="spinning">
       <a-table
@@ -52,10 +44,7 @@
             </router-link>
           </template>
         </a-table-column>
-        <a-table-column
-          title="药箱名称"
-          data-index="medicineName"
-        ></a-table-column>
+        <a-table-column title="药箱名称" data-index="medicineName"></a-table-column>
         <a-table-column title="省份" data-index="provinceName"></a-table-column>
         <a-table-column title="城市" data-index="cityName"></a-table-column>
         <a-table-column title="状态" data-index="status">
@@ -108,10 +97,7 @@
             placeholder="请选择药箱"
             style="width: 210px;"
           >
-            <a-select-option
-              v-for="medicine in medicines"
-              :key="medicine.medicineNo"
-            >
+            <a-select-option v-for="medicine in medicines" :key="medicine.medicineNo">
               {{ medicine.medicineName + `(${medicine.medicineNo})` }}
             </a-select-option>
           </a-select>
@@ -347,9 +333,7 @@ export default {
         okText: '确定',
         cancelText: '取消',
         onOk: async () => {
-          let response = await saveActivityMedicine(
-            this.selectedMedicinesParams
-          )
+          let response = await saveActivityMedicine(this.selectedMedicinesParams)
           if (response.code == 'HAVE_SAME_ACTIVITY_MEDICINE') {
             this.$message.warning(response.message)
           }

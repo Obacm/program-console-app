@@ -1,8 +1,5 @@
 <template>
-  <a-layout
-    id="components-layout-demo-top-side-2"
-    v-if="$router.currentRoute.name !== 'Login'"
-  >
+  <a-layout id="components-layout-demo-top-side-2" v-if="$router.currentRoute.name !== 'Login'">
     <a-layout-header
       class="header"
       style="background: #fff; height:75px; border-bottom-style: inset"
@@ -46,9 +43,7 @@
             <a-breadcrumb-item :key="index">
               <router-link
                 :to="history.path"
-                @click.native="
-                  setHistories(history, index === 0 ? true : false)
-                "
+                @click.native="setHistories(history, index === 0 ? true : false)"
               >
                 {{ history.meta.name }}
               </router-link>
@@ -56,9 +51,7 @@
           </template>
         </a-breadcrumb>
 
-        <a-layout-content
-          :style="{ background: '#fff', padding: '15px', flex: 'initial' }"
-        >
+        <a-layout-content :style="{ background: '#fff', padding: '15px', flex: 'initial' }">
           <router-view />
         </a-layout-content>
       </a-layout>

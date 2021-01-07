@@ -35,9 +35,7 @@
         ></wang-editor>
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button type="primary" @click="isUpdate ? onUpdate() : onSave()"
-          >确定</a-button
-        >
+        <a-button type="primary" @click="isUpdate ? onUpdate() : onSave()">确定</a-button>
       </a-form-model-item>
     </a-form-model>
   </a-spin>
@@ -66,12 +64,8 @@ export default {
         groupContent: ''
       },
       rules: {
-        groupTitle: [
-          { required: true, message: '标题不能为空', trigger: 'blur' }
-        ],
-        groupContent: [
-          { required: true, message: '内容不能为空', trigger: 'blur' }
-        ]
+        groupTitle: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
+        groupContent: [{ required: true, message: '内容不能为空', trigger: 'blur' }]
       },
       fileList: [],
       isUpdate: false

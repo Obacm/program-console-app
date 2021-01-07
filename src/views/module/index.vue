@@ -3,9 +3,7 @@
     <div v-if="$route.meta.visible">
       <div class="table-operator">
         <a-button type="primary" @click="onNavigationSave">新增</a-button>
-        <a-button type="default" class="button-left" @click="onNavigationUpdate"
-          >修改</a-button
-        >
+        <a-button type="default" class="button-left" @click="onNavigationUpdate">修改</a-button>
         <a-button
           class="button-left"
           @click="onAnyOff"
@@ -18,9 +16,7 @@
           style="background-color: #28a745; color: #fff"
           >上架</a-button
         >
-        <a-button type="danger" class="button-left" @click="onAnyDelete"
-          >删除</a-button
-        >
+        <a-button type="danger" class="button-left" @click="onAnyDelete">删除</a-button>
       </div>
       <a-spin :spinning="spinning">
         <a-table
@@ -41,10 +37,7 @@
               </span>
             </template>
           </a-table-column>
-          <a-table-column
-            title="创建日期"
-            data-index="createDate"
-          ></a-table-column>
+          <a-table-column title="创建日期" data-index="createDate"></a-table-column>
           <a-table-column title="状态" data-index="status">
             <template slot-scope="status">
               <span v-if="status === 1" style="color: #28a745">已上架</span>

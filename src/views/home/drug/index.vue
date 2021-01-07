@@ -2,9 +2,7 @@
   <div>
     <div class="table-operator">
       <a-button type="primary" @click="onModelSave">新增</a-button>
-      <a-button type="danger" class="button-left" @click="onAnyDelete"
-        >删除</a-button
-      >
+      <a-button type="danger" class="button-left" @click="onAnyDelete">删除</a-button>
     </div>
     <a-spin :spinning="spinning">
       <a-table
@@ -19,10 +17,7 @@
       >
         <a-table-column title="药品编号" data-index="drugNo"></a-table-column>
         <a-table-column title="药品名称" data-index="drugName"></a-table-column>
-        <a-table-column
-          title="药品价格"
-          data-index="drugPrice"
-        ></a-table-column>
+        <a-table-column title="药品价格" data-index="drugPrice"></a-table-column>
       </a-table>
     </a-spin>
     <a-modal
@@ -42,10 +37,7 @@
             placeholder="请选择药品分类"
             style="width: 210px;"
           >
-            <a-select-option
-              v-for="category in categories"
-              :key="category.drugTypeId"
-            >
+            <a-select-option v-for="category in categories" :key="category.drugTypeId">
               {{ category.drugType }}
             </a-select-option>
           </a-select>
