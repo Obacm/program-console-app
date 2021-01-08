@@ -18,7 +18,7 @@ var instance = axios.create({
 
 instance.interceptors.request.use(
   conf => {
-    store.commit('SET_SPINNING', true)
+    // store.commit('SET_SPINNING', true)
     return conf
   },
   error => {

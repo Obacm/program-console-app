@@ -35,7 +35,7 @@
             @change="handleCategoryChange"
             :loading="loading"
             placeholder="请选择药品分类"
-            style="width: 210px;"
+            style="width: 320px"
           >
             <a-select-option v-for="category in categories" :key="category.drugTypeId">
               {{ category.drugType }}

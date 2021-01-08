@@ -12,7 +12,7 @@ const state = {
 // 获取状态
 const getters = {
   histories: state => {
-    return state.histories ? state.histories : JSON.parse(storage.get('histories'))
+    return state.histories.length > 0 ? state.histories : JSON.parse(storage.get('histories'))
   }
 }
 
@@ -31,6 +31,7 @@ const mutations = {
     }
 
     let length = state.histories.length
+    console.log(state.histories)
     if (length > 0) {
       let index = state.histories.findIndex(item => {
         return item.path === payload.history.path

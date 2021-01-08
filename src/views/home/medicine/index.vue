@@ -90,12 +90,13 @@
         </a-form-model-item>
         <a-form-model-item label="选择药箱">
           <a-select
+            show-search
             mode="multiple"
             :value="selectedMedicines"
             @change="handleMedicineChange"
             :loading="loadingMedicine"
             placeholder="请选择药箱"
-            style="width: 210px;"
+            style="width: 320px"
           >
             <a-select-option v-for="medicine in medicines" :key="medicine.medicineNo">
               {{ medicine.medicineName + `(${medicine.medicineNo})` }}
@@ -275,6 +276,10 @@ export default {
           cancelText: '取消',
           onOk: async () => {
             let response = await putActivityMedicine(this.selectedRowIds)
+            if (response.code == 'HAVE_OFF_ACTIVITY') {
+              this.$message.warning(response.message)
+            }
+
             if (response.code == 200) {
               this.getActivityMedicines()
               this.$message.success('上架成功')
@@ -316,9 +321,7 @@ export default {
       this.selectedMedicinesParams = medicineNos.map(medicineNo => {
         return {
           activityId: this.activityId,
-          medicineName: this.medicines.find(item => {
-            return item.medicineNo === medicineNo
-          }).medicineName,
+          medicineName: this.medicines.find(item => item.medicineNo === medicineNo).medicineName,
           medicineNo: medicineNo,
           provinceName: this.province.provinceName,
           provinceId: this.province.provinceId,

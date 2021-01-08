@@ -279,9 +279,7 @@ export default {
     },
     handleActivityName(activityName) {
       this.form.activityName = activityName
-      let item = this.activities.find(item => {
-        return item.activityName === activityName
-      })
+      let item = this.activities.find(item => item.activityName === activityName)
       if (item) {
         this.setFileListEmpty()
         this.form.activityBanner = item.activityBanner

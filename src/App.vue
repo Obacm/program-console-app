@@ -14,7 +14,7 @@
       >
         <a-menu
           mode="inline"
-          :default-selected-keys="[index]"
+          :selected-keys="[index]"
           :default-open-keys="['sub']"
           :style="{ height: '100%', borderRight: 0 }"
         >
@@ -64,17 +64,19 @@
 
 <script>
 import { menus } from '@/router'
+import { storage } from '@/common/utils/storage'
 export default {
   data() {
     return {
       collapsed: false,
       routes: [],
-      menus: []
+      menus: [],
+      index: 1
     }
   },
   created() {
     this.routes = menus
-    this.menus = this.routes.map(item => item.meta.name)
+    this.menus = this.routes.map(item => item.path)
   },
   methods: {
     setHistories(history, type) {
@@ -84,25 +86,12 @@ export default {
   computed: {
     histories() {
       return this.$store.getters.histories
-    },
-    index() {
-      if (this.histories instanceof Array) {
-        if (this.histories.length > 0) {
-          return this.menus.indexOf(this.histories[0].meta.name) + 1
-        }
-      }
-
-      this.setHistories(
-        {
-          path: `/`,
-          meta: {
-            name: '活动管理'
-          }
-        },
-        true
-      )
-
-      return 1
+    }
+  },
+  watch: {
+    $route() {
+      let index = this.menus.indexOf(this.$route.path)
+      this.index = index < 0 ? index + 2 : index + 1
     }
   }
 }

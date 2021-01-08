@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       editor: null,
-      editorContent: null
+      editorContent: null,
+      isChange: false
     }
   },
   props: {
@@ -35,6 +36,7 @@ export default {
       this.editor.config.withCredentials = true
       this.editor.config.uploadFileName = 'wechatFile'
       this.editor.config.onchange = html => {
+        this.isChange = true
         this.editorContent = html
         this.$emit('update-content', this.editorContent)
       }
@@ -59,8 +61,11 @@ export default {
   },
   watch: {
     content(val) {
-      this.editorContent = val
-      this.editor.txt.html(val)
+      if (!this.isChange) {
+        this.editorContent = val
+        this.editor.txt.html(val)
+      }
+      this.isChange = false
     }
   }
 }
