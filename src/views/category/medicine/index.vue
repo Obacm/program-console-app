@@ -53,6 +53,7 @@ export default {
       selectedRows: [],
       medicineNo: null,
       pagination: {
+        showQuickJumper: true,
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50'],
         current: 1,
