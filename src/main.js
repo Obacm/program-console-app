@@ -3,6 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import { uploadUrl } from '@/api'
+import i18n from '@/i18n'
 import VueMeta from 'vue-meta'
 import lodash from 'lodash'
 import {
@@ -54,5 +55,6 @@ Vue.prototype.$confirm = Modal.confirm
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
