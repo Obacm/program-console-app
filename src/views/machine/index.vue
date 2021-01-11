@@ -87,12 +87,18 @@
           </div>
         </a-form-model-item>
         <a-form-model-item label="选择省市">
-          <a-select style="width: 150px" @change="handleProvinceModelChange" placeholder="请选择省">
+          <a-select
+            label-in-value
+            @change="handleProvinceModelChange"
+            placeholder="请选择省"
+            style="width: 150px"
+          >
             <a-select-option v-for="province in provinces" :key="province.id">
               {{ province.name }}
             </a-select-option>
           </a-select>
           <a-select
+            label-in-value
             @change="handleCityModelChange"
             :loading="loading"
             placeholder="请选择市"
@@ -274,24 +280,16 @@ export default {
     handleCityChange(id) {
       this.cityId = id
     },
-    handleProvinceModelChange(id) {
-      // 根据省ID获取省名
-      let province = this.provinces.find(item => {
-        return item.id === id
-      })
+    handleProvinceModelChange(province) {
       // 重置ID
-      this.province.provinceId = id
-      this.province.provinceName = province.name
-      this.getCities(2, id)
+      this.province.provinceId = province.key
+      this.province.provinceName = province.label
+      this.getCities(2, province.key)
     },
-    handleCityModelChange(id) {
-      // 根据市名获取市ID
-      let city = this.cities.find(item => {
-        return item.id === id
-      })
+    handleCityModelChange(city) {
       // 重置ID
-      this.city.cityId = city.id
-      this.city.cityName = city.name
+      this.city.cityId = city.key
+      this.city.cityName = city.label
     },
     setSelectedRowKeysEmpty() {
       this.selectedRows = []

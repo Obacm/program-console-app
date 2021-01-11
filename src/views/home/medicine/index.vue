@@ -67,6 +67,7 @@
       <a-form-model ref="ruleForm" v-model="form">
         <a-form-model-item label="选择省市">
           <a-select
+            label-in-value
             v-model="province.provinceName"
             style="width: 150px"
             @change="handleProvinceChange"
@@ -77,13 +78,14 @@
             </a-select-option>
           </a-select>
           <a-select
+            label-in-value
             v-model="city.cityName"
             @change="handleCityChange"
             :loading="loading"
             placeholder="请选择市"
             style="width: 150px; margin-left: 20px;"
           >
-            <a-select-option v-for="city in cities" :key="city.name">
+            <a-select-option v-for="city in cities" :key="city.id">
               {{ city.name }}
             </a-select-option>
           </a-select>
@@ -290,25 +292,17 @@ export default {
     showModal() {
       this.visible = true
     },
-    handleProvinceChange(id) {
-      this.city.cityName = ''
-      // 根据省ID获取省名
-      let province = this.provinces.find(item => {
-        return item.id === id
-      })
+    handleProvinceChange(province) {
+      this.city.cityName = null
       // 重置ID
-      this.province.provinceId = id
-      this.province.provinceName = province.name
-      this.getCities(2, id)
+      this.province.provinceId = province.key
+      this.province.provinceName = province.label
+      this.getCities(2, province.key)
     },
-    handleCityChange(name) {
+    handleCityChange(city) {
       this.setSelectedMedicinesEmpty()
-      // 根据市名获取市ID
-      let city = this.cities.find(item => {
-        return item.name === name
-      })
-      this.city.cityId = city.id
-      this.getMedicines(name)
+      this.city.cityId = city.key
+      this.getMedicines(city.label)
     },
     handleMedicineChange(medicineNos) {
       this.selectedMedicines = medicineNos
