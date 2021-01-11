@@ -75,6 +75,7 @@ export default {
       collapsed: false,
       routes: [],
       menus: [],
+      specials: ['/category-medicine'],
       index: 1,
       locale: zhCN
     }
@@ -96,7 +97,11 @@ export default {
   watch: {
     $route() {
       let index = this.menus.indexOf(this.$route.path)
-      this.index = index < 0 ? index + 2 : index + 1
+      if (this.specials.includes(this.$route.path)) {
+        this.index = 8
+      } else {
+        this.index = index < 0 ? index + 2 : index + 1
+      }
     }
   }
 }

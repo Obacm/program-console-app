@@ -314,3 +314,35 @@ export const syncMachines = params =>
  */
 export const setMachines = params =>
   axios.post('/wechatMedicineChestInfo/api/setUpMedicineChestCity', params)
+
+/***************************
+ ******** 分类管理接口 ******
+ **************************/
+
+/**
+ * 获取所有城市
+ * @param {*} params
+ */
+export const getMedicineCities = params =>
+  axios.get('/wechatMedicineChestInfo/query/getMedicineCityList', params)
+
+/**
+ * 获取城市所有药箱
+ * @param {*} params
+ */
+export const getMedicinesByCity = params =>
+  axios.get('/wechatMedicineChestInfo/query/getAllMedicineByCityId', params)
+
+/**
+ * 设置城市药箱药品类别
+ * @param {*} params
+ */
+export const setCityMedicineDrugType = params =>
+  axios.post('/wechatMedicineChestInfo/api/setCityMedicineDrugType', params)
+
+/**
+ * 真 获取所有药品类别
+ * @param {*} params
+ */
+export const getDrugClassification = params =>
+  axios.get('/wechatDrugInfo/query/getAllDrugClassification', params)

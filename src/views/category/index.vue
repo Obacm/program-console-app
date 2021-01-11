@@ -3,14 +3,6 @@
     <div v-if="$route.meta.visible">
       <div class="table-search-wrapper">
         <a-input-group compact>
-          <a-select default-value="1" @change="handleChange" style="width: 10%">
-            <a-select-option value="1">
-              是
-            </a-select-option>
-            <a-select-option value="0">
-              否
-            </a-select-option>
-          </a-select>
           <a-select
             v-model="provinceId"
             @change="handleProvinceChange"
@@ -32,18 +24,12 @@
               {{ city.name }}
             </a-select-option>
           </a-select>
-          <a-input-search
-            v-model="medicineNo"
-            placeholder="请输入药箱编号"
-            enter-button="查询"
-            @search="getMachines"
-            style="width: 25%; margin-left: 20px;"
-          />
-          <a-button type="danger" @click="onClear" style="margin-left: 20px;">清空</a-button>
+          <a-button type="primary" @click="getMedicineCities" style="margin-left: 20px;"
+            >查询</a-button
+          >
         </a-input-group>
       </div>
       <div class="table-operator">
-        <a-button type="primary" @click="onSyncMachines">同步</a-button>
         <a-button type="danger" class="button-left" @click="onModelSave">设置</a-button>
       </div>
       <a-spin :spinning="spinning">
@@ -58,16 +44,33 @@
           @change="handleTableChange"
           bordered
         >
-          <a-table-column title="药箱编号" data-index="medicineNo"></a-table-column>
-          <a-table-column title="药箱名称" data-index="medicineName"></a-table-column>
           <a-table-column title="省份" data-index="provinceName"></a-table-column>
-          <a-table-column title="城市" data-index="cityName"></a-table-column>
-          <a-table-column title="运营状态" data-index="medicineStatus">
-            <template slot-scope="medicineStatus">
-              <span v-if="medicineStatus == 0" style="color: #28a745">在线</span>
-              <span v-if="medicineStatus == 1" style="color: #ffc107">不在</span>
+          <a-table-column title="城市" data-index="cityName">
+            <template slot-scope="text, item">
+              <router-link
+                @click.native="
+                  setHistories({
+                    path: `category-medicine?cityId=${item.cityId}`,
+                    meta: {
+                      name: item.cityName
+                    }
+                  })
+                "
+                :to="{
+                  path: 'category-medicine',
+                  query: {
+                    cityId: item.cityId
+                  }
+                }"
+              >
+                {{ item.cityName }}
+              </router-link>
             </template>
           </a-table-column>
+          <a-table-column title="药箱数量" data-index="medicineNumber"></a-table-column>
+          <a-table-column title="分类数量" data-index="drugTypeNumber"></a-table-column>
+          <a-table-column title="分类状态" data-index="drugTypeStatus"></a-table-column>
+          <a-table-column title="分类异常明细" data-index="noShowDrugTypeName"></a-table-column>
         </a-table>
       </a-spin>
     </div>
@@ -81,25 +84,23 @@
       @cancel="handleCancel"
     >
       <a-form-model ref="ruleForm">
-        <a-form-model-item label="当前所选药箱名称">
+        <a-form-model-item label="当前所选城市名称">
           <div v-for="row in selectedRows" :key="row.medicineId">
-            {{ row.medicineNo }} {{ row.medicineName }}
+            {{ row.provinceName }} {{ row.cityName }}
           </div>
         </a-form-model-item>
-        <a-form-model-item label="选择省市">
-          <a-select style="width: 150px" @change="handleProvinceModelChange" placeholder="请选择省">
-            <a-select-option v-for="province in provinces" :key="province.id">
-              {{ province.name }}
-            </a-select-option>
-          </a-select>
+        <a-form-model-item label="选择药品分类(可多选)">
           <a-select
-            @change="handleCityModelChange"
+            label-in-value
+            mode="multiple"
+            :value="selectedDrugs"
+            @change="handleCategoryChange"
             :loading="loading"
-            placeholder="请选择市"
-            style="width: 150px; margin-left: 20px;"
+            placeholder="请选择药品分类"
+            style="width: 150px"
           >
-            <a-select-option v-for="city in cities" :key="city.id">
-              {{ city.name }}
+            <a-select-option v-for="category in categories" :key="category.drugTypeId">
+              {{ category.drugType }}
             </a-select-option>
           </a-select>
         </a-form-model-item>
@@ -110,11 +111,17 @@
 </template>
 
 <script>
-import { getMachines, syncMachines, setMachines, getCities } from '@/api'
+import {
+  getMedicineCities,
+  getMedicinesByCity,
+  setCityMedicineDrugType,
+  getDrugClassification,
+  getCities
+} from '@/api'
 import Computed from '@/components/Computed'
 
 export default {
-  name: 'machine',
+  name: 'category',
   metaInfo: {
     title: '药箱管理',
     titleTemplate: '%s | 中康智慧药箱'
@@ -127,41 +134,36 @@ export default {
       selectedRows: [],
       provinces: [],
       cities: [],
-      isSetCity: 1,
-      medicineNo: null,
+      categories: [],
+      selectedDrugs: [],
       provinceId: null,
       cityId: null,
       loading: false,
       visible: false,
       confirmLoading: false,
+      medicineNo: 2008000123,
       pagination: {
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50'],
         current: 1,
         pageSize: 10,
         total: 0
-      },
-      province: {
-        provinceId: null,
-        provinceName: null
-      },
-      city: {
-        cityId: null,
-        cityName: null
       }
     }
   },
   created() {
     this.getCities(1)
-    this.getMachines()
+    this.getDrugClassification()
+    this.getMedicineCities()
   },
   methods: {
-    async getMachines() {
-      let response = await getMachines({
-        isSetCity: this.isSetCity,
+    setHistories(history) {
+      this.$store.commit('SET_HOSTORIES', { history: history, type: false })
+    },
+    async getMedicineCities() {
+      let response = await getMedicineCities({
         provinceId: this.provinceId,
         cityId: this.cityId,
-        medicineNo: this.medicineNo,
         currentPage: this.pagination.current,
         pageSize: this.pagination.pageSize
       })
@@ -171,22 +173,13 @@ export default {
         this.pagination.total = response.data.total
       }
     },
-    async onSyncMachines() {
-      this.$confirm({
-        title: '确定同步？',
-        content: '您即将同步',
-        onOk: async () => {
-          let response = await syncMachines()
-          if (response.code == 200) {
-            this.$message.success('保存成功')
-          } else {
-            this.$message.warning('同步失败')
-          }
-        },
-        onCancel: () => {
-          //
-        }
+    async getDrugClassification() {
+      let response = await getDrugClassification({
+        medicineNo: this.medicineNo
       })
+      if (response.code == 200) {
+        this.categories = response.data
+      }
     },
     async getCities(level, id) {
       let response = await getCities({
@@ -204,6 +197,7 @@ export default {
     onModelSave() {
       let length = this.selectedRowKeys.length
       if (length > 0) {
+        this.setSelectedDrugsEmpty()
         this.showModal()
       } else {
         this.$message.warning('至少选择一条数据')
@@ -212,7 +206,6 @@ export default {
     showModal() {
       this.visible = true
     },
-    onSetMachines() {},
     handleOk() {
       this.$confirm({
         title: '确定提交？',
@@ -222,20 +215,20 @@ export default {
         onOk: async () => {
           // 计算提交数据
           if (this.selectedRows instanceof Array) {
+            let codes = this.selectedDrugs.map(item => item.key)
+            let names = this.selectedDrugs.map(item => item.label)
             let params = this.selectedRows.map(row => {
               return {
-                medicineNo: row.medicineNo,
-                cityId: this.city.cityId,
-                cityName: this.city.cityName,
-                provinceId: this.province.provinceId,
-                provinceName: this.province.provinceName
+                cityId: row.cityId,
+                noShowDrugTypeCode: codes.join(','),
+                noShowDrugTypeName: names.join(',').replace(/\s*/g, '')
               }
             })
-            let response = await setMachines(params)
+            let response = await setCityMedicineDrugType(params)
             if (response.code == 200) {
               this.$message.success('设置成功')
               this.visible = false
-              this.getMachines()
+              this.getMedicineCities()
             }
           }
         },
@@ -243,6 +236,9 @@ export default {
           //
         }
       })
+    },
+    handleCategoryChange(drugs) {
+      this.selectedDrugs = drugs
     },
     handleCancel() {
       this.visible = false
@@ -257,14 +253,9 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
     onClear() {
-      this.isSetCity = 1
       this.provinceId = null
       this.cityId = null
-      this.medicineNo = null
       this.$message.success('条件已清空')
-    },
-    handleChange(value) {
-      this.isSetCity = value
     },
     handleProvinceChange(id) {
       this.provinceId = id
@@ -273,28 +264,12 @@ export default {
     handleCityChange(id) {
       this.cityId = id
     },
-    handleProvinceModelChange(id) {
-      // 根据省ID获取省名
-      let province = this.provinces.find(item => {
-        return item.id === id
-      })
-      // 重置ID
-      this.province.provinceId = id
-      this.province.provinceName = province.name
-      this.getCities(2, id)
-    },
-    handleCityModelChange(id) {
-      // 根据市名获取市ID
-      let city = this.cities.find(item => {
-        return item.id === id
-      })
-      // 重置ID
-      this.city.cityId = city.id
-      this.city.cityName = city.name
-    },
     setSelectedRowKeysEmpty() {
       this.selectedRows = []
       this.selectedRowKeys = []
+    },
+    setSelectedDrugsEmpty() {
+      this.selectedDrugs = []
     }
   },
   watch: {}

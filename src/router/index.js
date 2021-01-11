@@ -108,6 +108,26 @@ const menus = [
       visible: true
     },
     component: () => import('@/views/machine')
+  },
+  {
+    path: '/category',
+    name: 'Catrgory',
+    meta: {
+      name: '分类管理',
+      visible: true
+    },
+    component: () => import('@/views/category'),
+    children: [
+      {
+        path: '/category-medicine',
+        name: 'CategoryMedicine',
+        meta: {
+          name: '药箱列表',
+          visible: false
+        },
+        component: () => import('@/views/category/medicine')
+      }
+    ]
   }
 ]
 
