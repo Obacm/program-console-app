@@ -107,8 +107,6 @@ export default {
           this.$confirm({
             title: '确定提交？',
             content: '您即将提交一个公告',
-            okText: '确定',
-            cancelText: '取消',
             onOk: async () => {
               let response = await saveNotice(this.form)
               if (response.code == 200) {
@@ -128,8 +126,6 @@ export default {
           this.$confirm({
             title: '确定提交？',
             content: '您即将提交一个公告',
-            okText: '确定',
-            cancelText: '取消',
             onOk: async () => {
               this.form.id = this.$route.query.id
               let response = await saveNotice(this.form)

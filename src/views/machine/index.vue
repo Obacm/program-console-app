@@ -140,6 +140,8 @@ export default {
       visible: false,
       confirmLoading: false,
       pagination: {
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '30', '40', '50'],
         current: 1,
         pageSize: 10,
         total: 0
@@ -178,8 +180,6 @@ export default {
       this.$confirm({
         title: '确定同步？',
         content: '您即将同步',
-        okText: '确定',
-        cancelText: '取消',
         onOk: async () => {
           let response = await syncMachines()
           if (response.code == 200) {

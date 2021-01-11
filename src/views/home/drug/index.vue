@@ -138,8 +138,6 @@ export default {
         this.$confirm({
           title: '确定删除？',
           content: `以下 ${length} 条数据会被删除`,
-          okText: '确定',
-          cancelText: '取消',
           onOk: async () => {
             let response = await deleteActivityDrugs(this.selectedRowIds)
             if (response.code == 200) {
@@ -170,8 +168,6 @@ export default {
           this.$confirm({
             title: '确定提交？',
             content: '您即将提交活动药品',
-            okText: '确定',
-            cancelText: '取消',
             onOk: async () => {
               let response = await saveActivityDrug(this.selectedDrugsParams)
 

@@ -101,8 +101,6 @@ export default {
         this.$confirm({
           title: '确定下架？',
           content: `以下 ${length} 条数据会被下架`,
-          okText: '确定',
-          cancelText: '取消',
           onOk: async () => {
             let response = await offNotices(this.selectedRowIds)
             if (response.code == 200) {
@@ -124,8 +122,6 @@ export default {
         this.$confirm({
           title: '确定上架？',
           content: `以下 ${length} 条数据会被上架`,
-          okText: '确定',
-          cancelText: '取消',
           onOk: async () => {
             let response = await putNotices(this.selectedRowIds)
             if (response.code == 200) {
@@ -147,8 +143,6 @@ export default {
         this.$confirm({
           title: '确定删除？',
           content: `以下 ${length} 条数据会被删除`,
-          okText: '确定',
-          cancelText: '取消',
           onOk: async () => {
             let response = await deleteNotices(this.selectedRowIds)
             if (response.code == 200) {
@@ -169,8 +163,6 @@ export default {
       this.$confirm({
         title: title,
         content: content,
-        okText: '确定',
-        cancelText: '取消',
         onOk: async () => {
           if (typeof method === 'function') {
             method()

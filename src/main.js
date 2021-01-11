@@ -21,7 +21,8 @@ import {
   Switch,
   Spin,
   Icon,
-  Message
+  Message,
+  ConfigProvider
 } from 'ant-design-vue'
 
 Vue.config.productionTip = false
@@ -42,6 +43,7 @@ Vue.use(Table)
 Vue.use(Spin)
 Vue.use(Icon)
 Vue.use(Message)
+Vue.use(ConfigProvider)
 Vue.use(VueMeta)
 
 Vue.prototype.uploadURL = uploadUrl

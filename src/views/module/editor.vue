@@ -106,8 +106,6 @@ export default {
           this.$confirm({
             title: '确定提交？',
             content: '您即将提交一个模块',
-            okText: '确定',
-            cancelText: '取消',
             onOk: async () => {
               let response = await saveModule(this.form)
               if (response.code == 200) {
