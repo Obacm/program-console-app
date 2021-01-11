@@ -143,14 +143,14 @@ export default {
       medicines: [],
       selectedMedicines: [],
       selectedMedicinesParams: [],
-      activityId: '',
+      activityId: null,
       province: {
-        provinceId: '',
-        provinceName: ''
+        provinceId: null,
+        provinceName: null
       },
       city: {
-        cityId: '',
-        cityName: ''
+        cityId: null,
+        cityName: null
       },
       form: {}
     }
@@ -368,14 +368,14 @@ export default {
 
     setProvinceEmpty() {
       this.provinces = []
-      this.province.provinceId = ''
-      this.province.provinceName = ''
+      this.province.provinceId = null
+      this.province.provinceName = null
       return this
     },
     setCityEmpty() {
       this.cities = []
-      this.city.cityId = ''
-      this.city.cityName = ''
+      this.city.cityId = null
+      this.city.cityName = null
       return this
     },
     setMedicineEmpty() {

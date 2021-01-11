@@ -138,9 +138,9 @@ export default {
       activities: [],
       isAction: false,
       form: {
-        activityId: '',
-        activityName: '',
-        activityBanner: '',
+        activityId: null,
+        activityName: null,
+        activityBanner: null,
         status: 0
       },
       rules: {

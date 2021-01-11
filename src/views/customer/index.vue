@@ -61,11 +61,11 @@ export default {
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
       form: {
-        id: '',
-        title: '',
-        banner: '',
-        content: '',
-        tel: ''
+        id: null,
+        title: null,
+        banner: null,
+        content: null,
+        tel: null
       },
       rules: {
         title: [{ required: true, message: '标题不能为空', trigger: 'blur' }],

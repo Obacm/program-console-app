@@ -99,6 +99,15 @@ const menus = [
       visible: true
     },
     component: () => import('@/views/customer')
+  },
+  {
+    path: '/machine',
+    name: 'Machine',
+    meta: {
+      name: '药箱管理',
+      visible: true
+    },
+    component: () => import('@/views/machine')
   }
 ]
 

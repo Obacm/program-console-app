@@ -25,22 +25,19 @@ export const getActivities = params =>
  * 活动详情
  * @param {*} params
  */
-export const getActivity = params =>
-  axios.get('/wechatActivity/query/geWechatActivityById', params)
+export const getActivity = params => axios.get('/wechatActivity/query/geWechatActivityById', params)
 
 /**
  * 活动下架
  * @param {*} params
  */
-export const offActivities = params =>
-  axios.post('/wechatActivity/api/offShelf', params)
+export const offActivities = params => axios.post('/wechatActivity/api/offShelf', params)
 
 /**
  * 活动上架
  * @param {*} params
  */
-export const putActivities = params =>
-  axios.post('/wechatActivity/api/putShelf', params)
+export const putActivities = params => axios.post('/wechatActivity/api/putShelf', params)
 
 /**
  * 活动删除
@@ -53,8 +50,7 @@ export const deleteActivities = params =>
  * 活动新增/更新
  * @param {*} params
  */
-export const saveActivity = params =>
-  axios.post('/wechatActivity/api/saveWechatActivity', params)
+export const saveActivity = params => axios.post('/wechatActivity/api/saveWechatActivity', params)
 
 /**
  * 活动药品
@@ -82,10 +78,7 @@ export const saveActivityDrug = params =>
  * @param {*} params
  */
 export const getActivityMedicines = params =>
-  axios.get(
-    '/wechatActivityMedicine/query/getWechatActivityMedicinePage',
-    params
-  )
+  axios.get('/wechatActivityMedicine/query/getWechatActivityMedicinePage', params)
 
 /***************************
  ********* 模块管理 *********
@@ -109,15 +102,13 @@ export const getModule = params =>
  * 模块下架
  * @param {*} params
  */
-export const offModules = params =>
-  axios.post('/wechatModuleMessage/api/offShelf', params)
+export const offModules = params => axios.post('/wechatModuleMessage/api/offShelf', params)
 
 /**
  * 模块上架
  * @param {*} params
  */
-export const putModules = params =>
-  axios.post('/wechatModuleMessage/api/putShelf', params)
+export const putModules = params => axios.post('/wechatModuleMessage/api/putShelf', params)
 
 /**
  * 模块删除
@@ -155,15 +146,13 @@ export const getNotice = params =>
  * 公告下架
  * @param {*} params
  */
-export const offNotices = params =>
-  axios.post('/wechatNoticeMessage/api/offShelf', params)
+export const offNotices = params => axios.post('/wechatNoticeMessage/api/offShelf', params)
 
 /**
  * 公告上架
  * @param {*} params
  */
-export const putNotices = params =>
-  axios.post('/wechatNoticeMessage/api/putShelf', params)
+export const putNotices = params => axios.post('/wechatNoticeMessage/api/putShelf', params)
 
 /**
  * 公告删除
@@ -187,15 +176,13 @@ export const saveNotice = params =>
  * 集团详情
  * @param {*} params
  */
-export const getGroup = () =>
-  axios.get('/sysGroupInfo/query/getGroupInfoDetailById')
+export const getGroup = () => axios.get('/sysGroupInfo/query/getGroupInfoDetailById')
 
 /**
  * 集团更新
  * @param {*} params
  */
-export const saveGroup = params =>
-  axios.post('/sysGroupInfo/api/saveGroupInfo', params)
+export const saveGroup = params => axios.post('/sysGroupInfo/api/saveGroupInfo', params)
 
 /***************************
  ********* 药师咨询 *********
@@ -241,8 +228,7 @@ export const saveCustomer = params =>
  * 省市获取
  * @param {*} params
  */
-export const getCities = params =>
-  axios.get('/sysNation/query/getSysNationInfo', params)
+export const getCities = params => axios.get('/sysNation/query/getSysNationInfo', params)
 
 /***************************
  ******* 药箱列表接口 *******
@@ -302,5 +288,29 @@ export const getDrugCategories = params =>
  * 商品列表获取
  * @param {*} params
  */
-export const getDrugs = params =>
-  axios.get('/wechatDrugInfo/query/getWechatDrugInfoPage', params)
+export const getDrugs = params => axios.get('/wechatDrugInfo/query/getWechatDrugInfoPage', params)
+
+/***************************
+ ******** 药箱接口 ******
+ **************************/
+
+/**
+ * 药箱列表获取
+ * @param {*} params
+ */
+export const getMachines = params =>
+  axios.get('/wechatMedicineChestInfo/query/getWechatMedicineChestAllForManage', params)
+
+/**
+ * 同步药箱信息
+ * @param {*} params
+ */
+export const syncMachines = params =>
+  axios.post('/wechatMedicineChestInfo/api/syncMedicineChestInfo', params)
+
+/**
+ * 设置药箱省市
+ * @param {*} params
+ */
+export const setMachines = params =>
+  axios.post('/wechatMedicineChestInfo/api/setUpMedicineChestCity', params)

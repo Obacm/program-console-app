@@ -5,6 +5,7 @@
 import { baseURL, webURL } from '@/config'
 import axios from 'axios'
 import store from '@/store'
+import { Message } from 'ant-design-vue'
 
 var instance = axios.create({
   headers: {
@@ -12,13 +13,13 @@ var instance = axios.create({
     'Content-Type': 'application/json;charset=UTF-8'
   },
   baseURL: baseURL,
-  timeout: 10000,
+  timeout: 1000 * 10,
   withCredentials: true // 请求不带 Cookie
 })
 
 instance.interceptors.request.use(
   conf => {
-    // store.commit('SET_SPINNING', true)
+    store.commit('SET_SPINNING', true)
     return conf
   },
   error => {
@@ -37,8 +38,13 @@ instance.interceptors.response.use(
     // TODO 错误响应的拦截
     store.commit('SET_SPINNING', false)
 
+    if (error.message.includes('timeout')) {
+      Message.error('请求超时')
+      return Promise.reject(error)
+    }
+
     if (error.response.status === 500) {
-      window.location.href = webURL + '/login'
+      // window.location.href = webURL + '/login'
     }
   }
 )

@@ -58,10 +58,10 @@ export default {
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
       form: {
-        groupId: '',
-        groupTitle: '',
-        groupBanner: '',
-        groupContent: ''
+        groupId: null,
+        groupTitle: null,
+        groupBanner: null,
+        groupContent: null
       },
       rules: {
         groupTitle: [{ required: true, message: '标题不能为空', trigger: 'blur' }],

@@ -31,7 +31,7 @@ const mutations = {
     }
 
     let length = state.histories.length
-    console.log(state.histories)
+
     if (length > 0) {
       let index = state.histories.findIndex(item => {
         return item.path === payload.history.path

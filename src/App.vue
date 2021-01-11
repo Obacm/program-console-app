@@ -106,6 +106,9 @@ export default {
   margin: 16px 28px 16px 0;
   float: left;
 }
+.table-search-wrapper {
+  margin-bottom: 15px;
+}
 .table-operator {
   margin-bottom: 15px;
   text-align: right;
