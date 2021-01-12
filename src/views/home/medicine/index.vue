@@ -352,6 +352,7 @@ export default {
     handleCityChange(city) {
       this.setSelectedMedicinesEmpty()
       this.city.cityId = city.key
+      this.city.cityName = city.label
       this.getMedicines(city.label)
     },
     handleProvinceSearchChange(id) {
