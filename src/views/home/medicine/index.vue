@@ -188,14 +188,8 @@ export default {
       medicineNo: null,
       provinceId: undefined,
       cityId: undefined,
-      province: {
-        provinceId: null,
-        provinceName: null
-      },
-      city: {
-        cityId: null,
-        cityName: null
-      },
+      province: {},
+      city: {},
       form: {}
     }
   },
@@ -359,6 +353,7 @@ export default {
     },
     handleProvinceSearchChange(id) {
       this.provinceId = id
+      this.setCitySearchEmpty()
       this.getCities(2, id)
     },
     handleCitySearchChange(id) {
@@ -411,7 +406,6 @@ export default {
       this.selectedMedicinesParams = []
       return this
     },
-
     setProvinceEmpty() {
       this.provinces = []
       this.province.provinceId = null
@@ -422,6 +416,14 @@ export default {
       this.cities = []
       this.city.cityId = null
       this.city.cityName = null
+      return this
+    },
+    setProvinceSearchEmpty() {
+      this.provinceId = undefined
+      return this
+    },
+    setCitySearchEmpty() {
+      this.cityId = undefined
       return this
     },
     setMedicineEmpty() {

@@ -261,10 +261,19 @@ export default {
     },
     handleProvinceChange(id) {
       this.provinceId = id
+      this.setCityEmpty()
       this.getCities(2, id)
     },
     handleCityChange(id) {
       this.cityId = id
+    },
+    setProvinceEmpty() {
+      this.provinceId = undefined
+      return this
+    },
+    setCityEmpty() {
+      this.cityId = undefined
+      return this
     },
     setSelectedRowKeysEmpty() {
       this.selectedRows = []

@@ -89,6 +89,7 @@
         <a-form-model-item label="选择省市">
           <a-select
             label-in-value
+            v-model="province"
             @change="handleProvinceModelChange"
             placeholder="请选择省"
             style="width: 150px"
@@ -99,6 +100,7 @@
           </a-select>
           <a-select
             label-in-value
+            v-model="city"
             @change="handleCityModelChange"
             :loading="loading"
             placeholder="请选择市"
@@ -148,14 +150,8 @@ export default {
         pageSize: 10,
         total: 0
       },
-      province: {
-        provinceId: null,
-        provinceName: null
-      },
-      city: {
-        cityId: null,
-        cityName: null
-      }
+      province: undefined,
+      city: undefined
     }
   },
   created() {
@@ -211,6 +207,7 @@ export default {
     onModelSave() {
       let length = this.selectedRowKeys.length
       if (length > 0) {
+        this.setProvinceModelEmpty().setCityModelEmpty()
         this.showModal()
       } else {
         this.$message.warning(this.$t('messages.limit'))
@@ -265,9 +262,9 @@ export default {
     },
     onClear() {
       this.isSetCity = 1
-      this.provinceId = undefined
-      this.cityId = undefined
-      this.medicineNo = null
+      this.setProvinceEmpty()
+        .setCityEmpty()
+        .setMedicineNoEmpty()
       this.$message.success('条件已清空')
     },
     handleChange(value) {
@@ -275,6 +272,7 @@ export default {
     },
     handleProvinceChange(id) {
       this.provinceId = id
+      this.setCityEmpty()
       this.getCities(2, id)
     },
     handleCityChange(id) {
@@ -284,12 +282,33 @@ export default {
       // 重置ID
       this.province.provinceId = province.key
       this.province.provinceName = province.label
+      this.setCityModelEmpty()
       this.getCities(2, province.key)
     },
     handleCityModelChange(city) {
       // 重置ID
       this.city.cityId = city.key
       this.city.cityName = city.label
+    },
+    setProvinceModelEmpty() {
+      this.province = undefined
+      return this
+    },
+    setCityModelEmpty() {
+      this.city = undefined
+      return this
+    },
+    setProvinceEmpty() {
+      this.provinceId = undefined
+      return this
+    },
+    setCityEmpty() {
+      this.cityId = undefined
+      return this
+    },
+    setMedicineNoEmpty() {
+      this.medicineNo = null
+      return this
     },
     setSelectedRowKeysEmpty() {
       this.selectedRows = []
