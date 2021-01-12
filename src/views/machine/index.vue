@@ -14,7 +14,6 @@
           <a-select
             v-model="provinceId"
             @change="handleProvinceChange"
-            placeholder="请选择省"
             style="width: 15%; margin-left: 20px;"
           >
             <a-select-option v-for="province in provinces" :key="province.id">
@@ -25,7 +24,6 @@
             v-model="cityId"
             @change="handleCityChange"
             :loading="loading"
-            placeholder="请选择市"
             style="width: 15%; margin-left: 20px;"
           >
             <a-select-option v-for="city in cities" :key="city.id">
@@ -75,8 +73,8 @@
       title="设置"
       :visible="visible"
       :confirm-loading="confirmLoading"
-      okText="确定"
-      cancelText="取消"
+      :okText="$t('describes.FPrimary')"
+      :cancelText="$t('describes.FDefault')"
       @ok="handleOk"
       @cancel="handleCancel"
     >
@@ -213,7 +211,7 @@ export default {
       if (length > 0) {
         this.showModal()
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     showModal() {

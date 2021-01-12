@@ -2,21 +2,25 @@
   <div>
     <div v-if="$route.meta.visible">
       <div class="table-operator">
-        <a-button type="primary" @click="onNavigationSave">新增</a-button>
-        <a-button type="default" class="button-left" @click="onNavigationUpdate">修改</a-button>
+        <a-button type="primary" @click="onNavigationSave">{{ $t('describes.BPrimary') }}</a-button>
+        <a-button type="default" class="button-left" @click="onNavigationUpdate">{{
+          $t('describes.BDefault')
+        }}</a-button>
         <a-button
           class="button-left"
           @click="onAnyOff"
           style="background-color: #ffc107; color: #fff"
-          >下架</a-button
+          >{{ $t('describes.BOff') }}</a-button
         >
         <a-button
           class="button-left"
           @click="onAnyPut"
           style="background-color: #28a745; color: #fff"
-          >上架</a-button
+          >{{ $t('describes.BPut') }}</a-button
         >
-        <a-button type="danger" class="button-left" @click="onAnyDelete">删除</a-button>
+        <a-button type="danger" class="button-left" @click="onAnyDelete">{{
+          $t('describes.BDanger')
+        }}</a-button>
       </div>
       <a-spin :spinning="spinning">
         <a-table
@@ -113,7 +117,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     async onAnyPut() {
@@ -134,7 +138,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     async onAnyDelete() {
@@ -156,7 +160,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     confirm(title, content, method) {

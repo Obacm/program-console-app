@@ -35,9 +35,12 @@
         ></wang-editor>
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button @click="onCancel">取消</a-button>
-        <a-button style="margin-left: 10px" type="primary" @click="isUpdate ? onUpdate() : onSave()"
-          >确定</a-button
+        <a-button @click="onCancel">{{ $t('describes.FDefault') }}</a-button>
+        <a-button
+          style="margin-left: 10px"
+          type="primary"
+          @click="isUpdate ? onUpdate() : onSave()"
+          >{{ $t('describes.FPrimary') }}</a-button
         >
       </a-form-model-item>
     </a-form-model>

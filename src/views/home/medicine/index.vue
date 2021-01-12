@@ -1,14 +1,22 @@
 <template>
   <div>
     <div class="table-operator">
-      <a-button type="primary" @click="onModelSave">新增</a-button>
-      <a-button class="button-left" @click="onAnyOff" style="background-color: #ffc107; color: #fff"
-        >下架</a-button
+      <a-button type="primary" @click="onModelSave">{{ $t('describes.BPrimary') }}</a-button>
+      <a-button
+        class="button-left"
+        @click="onAnyOff"
+        style="background-color: #ffc107; color: #fff"
+        >{{ $t('describes.BOff') }}</a-button
       >
-      <a-button class="button-left" @click="onAnyPut" style="background-color: #28a745; color: #fff"
-        >上架</a-button
+      <a-button
+        class="button-left"
+        @click="onAnyPut"
+        style="background-color: #28a745; color: #fff"
+        >{{ $t('describes.BPut') }}</a-button
       >
-      <a-button type="danger" class="button-left" @click="onAnyDelete">删除</a-button>
+      <a-button type="danger" class="button-left" @click="onAnyDelete">{{
+        $t('describes.BDanger')
+      }}</a-button>
     </div>
     <a-spin :spinning="spinning">
       <a-table
@@ -59,8 +67,8 @@
       title="新增药箱"
       :visible="visible"
       :confirm-loading="confirmLoading"
-      okText="确定"
-      cancelText="取消"
+      :okText="$t('describes.FPrimary')"
+      :cancelText="$t('describes.FDefault')"
       @ok="handleOk"
       @cancel="handleCancel"
     >
@@ -68,7 +76,6 @@
         <a-form-model-item label="选择省市">
           <a-select
             label-in-value
-            v-model="province.provinceName"
             style="width: 150px"
             @change="handleProvinceChange"
             placeholder="请选择省"
@@ -79,7 +86,6 @@
           </a-select>
           <a-select
             label-in-value
-            v-model="city.cityName"
             @change="handleCityChange"
             :loading="loading"
             placeholder="请选择市"
@@ -232,7 +238,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     onModelSave() {
@@ -261,7 +267,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     async onAnyPut() {
@@ -286,7 +292,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     showModal() {

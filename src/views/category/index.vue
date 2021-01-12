@@ -78,8 +78,8 @@
       title="设置"
       :visible="visible"
       :confirm-loading="confirmLoading"
-      okText="确定"
-      cancelText="取消"
+      :okText="$t('describes.FPrimary')"
+      :cancelText="$t('describes.FDefault')"
       @ok="handleOk"
       @cancel="handleCancel"
     >
@@ -201,7 +201,7 @@ export default {
         this.setSelectedDrugsEmpty()
         this.showModal()
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     showModal() {

@@ -8,7 +8,7 @@ const menus = [
     path: '/',
     name: 'Home',
     meta: {
-      name: '活动管理',
+      name: 'home',
       visible: true
     },
     component: () => import('@/views/home'),
@@ -37,7 +37,7 @@ const menus = [
     path: '/module',
     name: 'Module',
     meta: {
-      name: '模块管理',
+      name: 'module',
       visible: true
     },
     component: () => import('@/views/module'),
@@ -57,7 +57,7 @@ const menus = [
     path: '/notice',
     name: 'Notice',
     meta: {
-      name: '公告管理',
+      name: 'notice',
       visible: true
     },
     component: () => import('@/views/notice'),
@@ -77,7 +77,7 @@ const menus = [
     path: '/group',
     name: 'Group',
     meta: {
-      name: '集团管理',
+      name: 'group',
       visible: true
     },
     component: () => import('@/views/group')
@@ -86,7 +86,7 @@ const menus = [
     path: '/doctor',
     name: 'Doctor',
     meta: {
-      name: '药师咨询',
+      name: 'doctor',
       visible: true
     },
     component: () => import('@/views/doctor')
@@ -95,7 +95,7 @@ const menus = [
     path: '/customer',
     name: 'Customer',
     meta: {
-      name: '售后客服',
+      name: 'customer',
       visible: true
     },
     component: () => import('@/views/customer')
@@ -104,7 +104,7 @@ const menus = [
     path: '/machine',
     name: 'Machine',
     meta: {
-      name: '药箱管理',
+      name: 'machine',
       visible: true
     },
     component: () => import('@/views/machine')
@@ -113,7 +113,7 @@ const menus = [
     path: '/category',
     name: 'Catrgory',
     meta: {
-      name: '分类管理',
+      name: 'category',
       visible: true
     },
     component: () => import('@/views/category'),

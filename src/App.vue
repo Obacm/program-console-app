@@ -24,9 +24,19 @@
               <a-menu-item
                 :key="index + 1"
                 v-for="(route, index) in routes"
-                @click="setHistories(route, true)"
+                @click="
+                  setHistories(
+                    {
+                      path: `${route.path}`,
+                      meta: {
+                        name: $t(`navs.${route.meta.name}`)
+                      }
+                    },
+                    true
+                  )
+                "
               >
-                <router-link :to="route.path">{{ route.meta.name }}</router-link>
+                <router-link :to="route.path">{{ $t(`navs.${route.meta.name}`) }}</router-link>
               </a-menu-item>
             </a-sub-menu>
           </a-menu>
@@ -97,10 +107,18 @@ export default {
   watch: {
     $route() {
       let index = this.menus.indexOf(this.$route.path)
-      if (this.specials.includes(this.$route.path)) {
-        this.index = 8
-      } else {
-        this.index = index < 0 ? index + 2 : index + 1
+      switch (this.$route.path) {
+        case '/notice-editor':
+          this.index = 3
+          break
+        case '/module-editor':
+          this.index = 2
+          break
+        case '/category-medicine':
+          this.index = 8
+          break
+        default:
+          this.index = index < 0 ? index + 2 : index + 1
       }
     }
   }

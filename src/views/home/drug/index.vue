@@ -1,8 +1,10 @@
 <template>
   <div>
     <div class="table-operator">
-      <a-button type="primary" @click="onModelSave">新增</a-button>
-      <a-button type="danger" class="button-left" @click="onAnyDelete">删除</a-button>
+      <a-button type="primary" @click="onModelSave">{{ $t('describes.BPrimary') }}</a-button>
+      <a-button type="danger" class="button-left" @click="onAnyDelete">{{
+        $t('describes.BDanger')
+      }}</a-button>
     </div>
     <a-spin :spinning="spinning">
       <a-table
@@ -24,8 +26,8 @@
       title="新增活动药品"
       :visible="visible"
       :confirm-loading="confirmLoading"
-      okText="确定"
-      cancelText="取消"
+      :okText="$t('describes.FPrimary')"
+      :cancelText="$t('describes.FDefault')"
       @ok="handleOk"
       @cancel="handleCancel"
     >
@@ -151,7 +153,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning('至少选择一条数据')
+        this.$message.warning(this.$t('messages.limit'))
       }
     },
     onModelSave() {
