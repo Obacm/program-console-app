@@ -137,7 +137,6 @@ export default {
     },
     updateContent(content) {
       this.form.content = content
-      console.log(this.form.content)
     }
   }
 }
