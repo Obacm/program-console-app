@@ -1,5 +1,36 @@
 <template>
   <div>
+    <div class="table-search-wrapper">
+      <a-input-group compact>
+        <a-select
+          @change="handleProvinceSearchChange"
+          placeholder="请选择省份"
+          style="width: 15%; margin-left: 20px;"
+        >
+          <a-select-option v-for="province in provinces" :key="province.id">
+            {{ province.name }}
+          </a-select-option>
+        </a-select>
+        <a-select
+          @change="handleCitySearchChange"
+          :loading="loading"
+          placeholder="请选择城市"
+          style="width: 15%; margin-left: 20px;"
+        >
+          <a-select-option v-for="city in cities" :key="city.id">
+            {{ city.name }}
+          </a-select-option>
+        </a-select>
+        <a-input-search
+          v-model="medicineNo"
+          placeholder="请输入药箱编号"
+          enter-button="查询"
+          @search="getActivityMedicines"
+          style="width: 25%; margin-left: 20px;"
+        />
+        <a-button type="danger" @click="onClear" style="margin-left: 20px;">清空</a-button>
+      </a-input-group>
+    </div>
     <div class="table-operator">
       <a-button type="primary" @click="onModelSave">{{ $t('describes.BPrimary') }}</a-button>
       <a-button
@@ -152,6 +183,9 @@ export default {
       selectedMedicines: [],
       selectedMedicinesParams: [],
       activityId: null,
+      medicineNo: null,
+      provinceId: null,
+      cityId: null,
       province: {
         provinceId: null,
         provinceName: null
@@ -165,6 +199,7 @@ export default {
   },
   created() {
     this.activityId = this.$route.query.activityId
+    this.getCities(1)
     this.getActivityMedicines()
   },
   methods: {
@@ -173,7 +208,10 @@ export default {
     },
     async getActivityMedicines() {
       let response = await getActivityMedicines({
-        activityId: this.$route.query.activityId
+        activityId: this.$route.query.activityId,
+        provinceId: this.provinceId,
+        cityId: this.cityId,
+        medicineNo: this.medicineNo
       })
       if (response.code == 200) {
         this.data = response.data.records
@@ -295,6 +333,12 @@ export default {
         this.$message.warning(this.$t('messages.limit'))
       }
     },
+    onClear() {
+      this.provinceId = null
+      this.cityId = null
+      this.medicineNo = null
+      this.$message.success('条件已清空')
+    },
     showModal() {
       this.visible = true
     },
@@ -309,6 +353,13 @@ export default {
       this.setSelectedMedicinesEmpty()
       this.city.cityId = city.key
       this.getMedicines(city.label)
+    },
+    handleProvinceSearchChange(id) {
+      this.provinceId = id
+      this.getCities(2, id)
+    },
+    handleCitySearchChange(id) {
+      this.cityId = id
     },
     handleMedicineChange(medicineNos) {
       this.selectedMedicines = medicineNos

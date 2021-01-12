@@ -92,7 +92,7 @@
               :remove="handleRemove"
               :beforeUpload="handleBeforeUpload"
               name="wechatFile"
-              @change="handleChange"
+              @change="handleUploadChange"
               list-type="picture"
               accept="image/png, image/jpeg"
               class="upload-list-inline"
@@ -319,7 +319,7 @@ export default {
         return Promise.reject(false)
       }
     },
-    handleChange({ file, fileList }) {
+    handleUploadChange({ file, fileList }) {
       this.fileList = [...fileList]
       if (file.status === 'done') {
         if (file.response.code == 200) {
@@ -327,6 +327,7 @@ export default {
         }
       }
     },
+
     handleRemove(file) {
       this.setFileListEmpty()
       this.form.activityBanner = null

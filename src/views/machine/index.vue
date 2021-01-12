@@ -12,8 +12,8 @@
             </a-select-option>
           </a-select>
           <a-select
-            v-model="provinceId"
             @change="handleProvinceChange"
+            placeholder="请选择省份"
             style="width: 15%; margin-left: 20px;"
           >
             <a-select-option v-for="province in provinces" :key="province.id">
@@ -21,9 +21,9 @@
             </a-select-option>
           </a-select>
           <a-select
-            v-model="cityId"
             @change="handleCityChange"
             :loading="loading"
+            placeholder="请选择城市"
             style="width: 15%; margin-left: 20px;"
           >
             <a-select-option v-for="city in cities" :key="city.id">
