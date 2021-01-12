@@ -4,6 +4,7 @@
       <div class="table-search-wrapper">
         <a-input-group compact>
           <a-select
+            v-model="provinceId"
             @change="handleProvinceChange"
             placeholder="请选择省份"
             style="width: 15%; margin-left: 20px;"
@@ -13,6 +14,7 @@
             </a-select-option>
           </a-select>
           <a-select
+            v-model="cityId"
             @change="handleCityChange"
             :loading="loading"
             placeholder="请选择城市"
@@ -25,6 +27,7 @@
           <a-button type="primary" @click="getMedicineCities" style="margin-left: 20px;"
             >查询</a-button
           >
+          <a-button type="danger" @click="onClear" style="margin-left: 20px;">清空</a-button>
         </a-input-group>
       </div>
       <div class="table-operator">
@@ -134,8 +137,8 @@ export default {
       cities: [],
       categories: [],
       selectedDrugs: [],
-      provinceId: null,
-      cityId: null,
+      provinceId: undefined,
+      cityId: undefined,
       loading: false,
       visible: false,
       confirmLoading: false,
@@ -202,6 +205,11 @@ export default {
         this.$message.warning(this.$t('messages.limit'))
       }
     },
+    onClear() {
+      this.provinceId = undefined
+      this.cityId = undefined
+      this.$message.success('条件已清空')
+    },
     showModal() {
       this.visible = true
     },
@@ -250,11 +258,6 @@ export default {
     onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRows = selectedRows
       this.selectedRowKeys = selectedRowKeys
-    },
-    onClear() {
-      this.provinceId = null
-      this.cityId = null
-      this.$message.success('条件已清空')
     },
     handleProvinceChange(id) {
       this.provinceId = id

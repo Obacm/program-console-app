@@ -12,6 +12,7 @@
             </a-select-option>
           </a-select>
           <a-select
+            v-model="provinceId"
             @change="handleProvinceChange"
             placeholder="请选择省份"
             style="width: 15%; margin-left: 20px;"
@@ -21,6 +22,7 @@
             </a-select-option>
           </a-select>
           <a-select
+            v-model="cityId"
             @change="handleCityChange"
             :loading="loading"
             placeholder="请选择城市"
@@ -133,8 +135,8 @@ export default {
       cities: [],
       isSetCity: 1,
       medicineNo: null,
-      provinceId: null,
-      cityId: null,
+      provinceId: undefined,
+      cityId: undefined,
       loading: false,
       visible: false,
       confirmLoading: false,
@@ -263,8 +265,8 @@ export default {
     },
     onClear() {
       this.isSetCity = 1
-      this.provinceId = null
-      this.cityId = null
+      this.provinceId = undefined
+      this.cityId = undefined
       this.medicineNo = null
       this.$message.success('条件已清空')
     },

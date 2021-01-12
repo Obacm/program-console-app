@@ -3,6 +3,7 @@
     <div class="table-search-wrapper">
       <a-input-group compact>
         <a-select
+          v-model="provinceId"
           @change="handleProvinceSearchChange"
           placeholder="请选择省份"
           style="width: 15%; margin-left: 20px;"
@@ -12,6 +13,7 @@
           </a-select-option>
         </a-select>
         <a-select
+          v-model="cityId"
           @change="handleCitySearchChange"
           :loading="loading"
           placeholder="请选择城市"
@@ -184,8 +186,8 @@ export default {
       selectedMedicinesParams: [],
       activityId: null,
       medicineNo: null,
-      provinceId: null,
-      cityId: null,
+      provinceId: undefined,
+      cityId: undefined,
       province: {
         provinceId: null,
         provinceName: null
@@ -334,8 +336,8 @@ export default {
       }
     },
     onClear() {
-      this.provinceId = null
-      this.cityId = null
+      this.provinceId = undefined
+      this.cityId = undefined
       this.medicineNo = null
       this.$message.success('条件已清空')
     },
