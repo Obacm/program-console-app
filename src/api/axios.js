@@ -13,7 +13,7 @@ var instance = axios.create({
     'Content-Type': 'application/json;charset=UTF-8'
   },
   baseURL: baseURL,
-  timeout: 1000 * 10,
+  timeout: 1000 * 30,
   withCredentials: true // 请求不带 Cookie
 })
 
@@ -44,7 +44,7 @@ instance.interceptors.response.use(
     }
 
     if (error.response.status === 500) {
-      // window.location.href = webURL + '/login'
+      window.location.href = webURL + '/login'
     }
   }
 )

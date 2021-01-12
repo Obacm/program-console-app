@@ -3,11 +3,14 @@
     <div v-if="$route.meta.visible">
       <div class="table-search-wrapper">
         <a-input-group compact>
-          <a-select default-value="1" @change="handleChange" style="width: 10%">
+          <a-select v-model="isSetCityName" @change="handleChange" style="width: 10%">
+            <a-select-option value="0">
+              全部
+            </a-select-option>
             <a-select-option value="1">
               是
             </a-select-option>
-            <a-select-option value="0">
+            <a-select-option value="2">
               否
             </a-select-option>
           </a-select>
@@ -135,7 +138,8 @@ export default {
       selectedRows: [],
       provinces: [],
       cities: [],
-      isSetCity: 1,
+      isSetCity: 0,
+      isSetCityName: '全部',
       medicineNo: null,
       provinceId: undefined,
       cityId: undefined,
@@ -160,6 +164,10 @@ export default {
   },
   methods: {
     async getMachines() {
+      if (this.medicineNo) {
+        this.pagination.current = 1
+      }
+
       let response = await getMachines({
         isSetCity: this.isSetCity,
         provinceId: this.provinceId,
@@ -225,6 +233,11 @@ export default {
         cancelText: '取消',
         onOk: async () => {
           // 计算提交数据
+          if (typeof this.city == 'undefined' || typeof this.province == 'undefined') {
+            this.$message.warning('请选择省份或者城市')
+            return
+          }
+
           if (this.selectedRows instanceof Array) {
             let params = this.selectedRows.map(row => {
               return {
@@ -261,7 +274,8 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
     onClear() {
-      this.isSetCity = 1
+      this.isSetCity = 0
+      this.isSetCityName = '全部'
       this.setProvinceEmpty()
         .setCityEmpty()
         .setMedicineNoEmpty()
