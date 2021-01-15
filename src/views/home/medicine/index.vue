@@ -342,14 +342,14 @@ export default {
       this.city.cityName = null
       // 重置ID
       this.province.provinceId = province.key
-      this.province.provinceName = province.label
+      this.province.provinceName = this._(province.label)
       this.getCities(2, province.key)
     },
     handleCityChange(city) {
       this.setSelectedMedicinesEmpty()
       this.city.cityId = city.key
-      this.city.cityName = city.label
-      this.getMedicines(city.label)
+      this.city.cityName = this._(city.label)
+      this.getMedicines(this._(city.label))
     },
     handleProvinceSearchChange(id) {
       this.provinceId = id

@@ -13,7 +13,7 @@ var instance = axios.create({
     'Content-Type': 'application/json;charset=UTF-8'
   },
   baseURL: baseURL,
-  timeout: 1000 * 30,
+  timeout: 1000 * 60 * 5,
   withCredentials: true // 请求不带 Cookie
 })
 

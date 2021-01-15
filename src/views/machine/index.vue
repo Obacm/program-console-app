@@ -67,8 +67,8 @@
           <a-table-column title="城市" data-index="cityName"></a-table-column>
           <a-table-column title="运营状态" data-index="medicineStatus">
             <template slot-scope="medicineStatus">
-              <span v-if="medicineStatus == 0" style="color: #28a745">在线</span>
-              <span v-if="medicineStatus == 1" style="color: #ffc107">不在</span>
+              <span v-if="medicineStatus == 0" style="color: #ffc107">不在线</span>
+              <span v-if="medicineStatus == 1" style="color: #28a745">在线</span>
             </template>
           </a-table-column>
         </a-table>
@@ -295,14 +295,15 @@ export default {
     handleProvinceModelChange(province) {
       // 重置ID
       this.province.provinceId = province.key
-      this.province.provinceName = province.label
+      this.province.provinceName = this._.trim(province.label)
       this.setCityModelEmpty()
       this.getCities(2, province.key)
     },
     handleCityModelChange(city) {
       // 重置ID
+      console.log(city)
       this.city.cityId = city.key
-      this.city.cityName = city.label
+      this.city.cityName = this._.trim(city.label)
     },
     setProvinceModelEmpty() {
       this.province = undefined

@@ -344,5 +344,5 @@ export const setCityMedicineDrugType = params =>
  * 真 获取所有药品类别
  * @param {*} params
  */
-export const getDrugClassification = params =>
-  axios.get('/wechatDrugInfo/query/getAllDrugClassification', params)
+export const getDrugClassification = () =>
+  axios.get('/wechatDrugInfo/query/getAllDrugClassification')

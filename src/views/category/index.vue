@@ -69,7 +69,6 @@
             </template>
           </a-table-column>
           <a-table-column title="药箱数量" data-index="medicineNumber"></a-table-column>
-          <a-table-column title="分类数量" data-index="drugTypeNumber"></a-table-column>
           <a-table-column title="分类状态" data-index="drugTypeStatus"></a-table-column>
           <a-table-column title="分类异常明细" data-index="noShowDrugTypeName"></a-table-column>
         </a-table>
@@ -142,7 +141,6 @@ export default {
       loading: false,
       visible: false,
       confirmLoading: false,
-      medicineNo: 2008000123,
       pagination: {
         showQuickJumper: true,
         showSizeChanger: true,
@@ -176,9 +174,7 @@ export default {
       }
     },
     async getDrugClassification() {
-      let response = await getDrugClassification({
-        medicineNo: this.medicineNo
-      })
+      let response = await getDrugClassification()
       if (response.code == 200) {
         this.categories = response.data
       }
