@@ -5,6 +5,7 @@ const pro = 'https://z-chinakang.com'
 const devWeb = 'http://localhost:8080'
 const proWeb = 'http://shop.z-chinakang.com'
 // const proWeb = 'http://47.96.30.27:8098'
+
 // 我现在在开发环境打印process.env.NODE_ENV结果为：development
 // 我现在生产环境(线上)打印process.env.NODE_ENV结果为：production
 export const baseURL =

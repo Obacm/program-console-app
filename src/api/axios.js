@@ -44,7 +44,7 @@ instance.interceptors.response.use(
     }
 
     if (error.response.status === 500) {
-      // window.location.href = webURL + '/login'
+      window.location.href = webURL + '/login'
     }
   }
 )
