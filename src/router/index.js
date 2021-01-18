@@ -128,6 +128,26 @@ const menus = [
         component: () => import('@/views/category/medicine')
       }
     ]
+  },
+  {
+    path: '/order',
+    name: 'Order',
+    meta: {
+      name: 'order',
+      visible: true
+    },
+    component: () => import('@/views/order'),
+    children: [
+      {
+        path: '/order-drug',
+        name: 'OrderDrug',
+        meta: {
+          name: '订单详情',
+          visible: false
+        },
+        component: () => import('@/views/order/drug')
+      }
+    ]
   }
 ]
 

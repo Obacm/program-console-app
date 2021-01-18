@@ -11,7 +11,7 @@ export const baseURL =
   process.env.NODE_ENV === 'production'
     ? pro + '/wechat-service' // 生产环境接口地址
     : // pro + '/wechat-pc-test' // 生产环境接口地址
-      dev + '/wechat-service' // 开发环境接口地址
+      dev + '/wechat-test' // 开发环境接口地址
 
 export const webURL =
   process.env.NODE_ENV === 'production'

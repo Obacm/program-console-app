@@ -23,6 +23,7 @@ import {
   Spin,
   Icon,
   Message,
+  DatePicker,
   ConfigProvider
 } from 'ant-design-vue'
 
@@ -44,6 +45,7 @@ Vue.use(Table)
 Vue.use(Spin)
 Vue.use(Icon)
 Vue.use(Message)
+Vue.use(DatePicker)
 Vue.use(ConfigProvider)
 Vue.use(VueMeta)
 

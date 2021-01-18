@@ -117,6 +117,9 @@ export default {
         case '/category-medicine':
           this.index = 8
           break
+        case '/order-drug':
+          this.index = 9
+          break
         default:
           this.index = index < 0 ? index + 2 : index + 1
       }
@@ -143,6 +146,12 @@ export default {
 }
 .button-left {
   margin-left: 15px;
+}
+.button-link {
+  color: #000;
+}
+.button-active {
+  color: #1890ff;
 }
 .banner {
   width: 80px;

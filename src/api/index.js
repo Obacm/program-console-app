@@ -12,7 +12,7 @@ export const login = params => axios.post('/auth/api/pcLogin', params)
 
 /***************************
  ********* 活动管理 *********
- **************************/
+ ***************************/
 
 /**
  * 活动列表
@@ -82,7 +82,7 @@ export const getActivityMedicines = params =>
 
 /***************************
  ********* 模块管理 *********
- **************************/
+ ***************************/
 
 /**
  * 模块列表
@@ -126,7 +126,7 @@ export const saveModule = params =>
 
 /***************************
  ********* 公告管理 *********
- **************************/
+ ***************************/
 
 /**
  * 公告列表
@@ -170,7 +170,7 @@ export const saveNotice = params =>
 
 /***************************
  ********* 集团管理 *********
- **************************/
+ ***************************/
 
 /**
  * 集团详情
@@ -186,7 +186,7 @@ export const saveGroup = params => axios.post('/sysGroupInfo/api/saveGroupInfo',
 
 /***************************
  ********* 药师咨询 *********
- **************************/
+ ***************************/
 
 /**
  * 药师咨询详情
@@ -204,7 +204,7 @@ export const saveDoctor = params =>
 
 /***************************
  ********* 售后客服 *********
- **************************/
+ ***************************/
 
 /**
  * 售后客服详情
@@ -222,7 +222,7 @@ export const saveCustomer = params =>
 
 /***************************
  ********* 省市接口 *********
- **************************/
+ ***************************/
 
 /**
  * 省市获取
@@ -231,8 +231,8 @@ export const saveCustomer = params =>
 export const getCities = params => axios.get('/sysNation/query/getSysNationInfo', params)
 
 /***************************
- ******* 药箱列表接口 *******
- **************************/
+ ******* 药箱列表接口 ********
+ ***************************/
 
 /**
  * 药箱接口
@@ -270,8 +270,8 @@ export const offActivityMedicine = params =>
   axios.post('/wechatActivityMedicine/api/offWechatActivityMedicine', params)
 
 /***************************
- ******** 药品列表接口 ******
- **************************/
+ ******** 药品列表接口 *******
+ ***************************/
 
 /**
  * 商品分类列表获取
@@ -281,8 +281,8 @@ export const getDrugCategories = params =>
   axios.get('/wechatDrugInfo/query/getDrugClassification', params)
 
 /***************************
- ******** 药品列表接口 ******
- **************************/
+ ******** 药品列表接口 *******
+ ***************************/
 
 /**
  * 商品列表获取
@@ -291,8 +291,8 @@ export const getDrugCategories = params =>
 export const getDrugs = params => axios.get('/wechatDrugInfo/query/getWechatDrugInfoPage', params)
 
 /***************************
- ******** 药箱接口 ******
- **************************/
+ ******** 药箱接口 **********
+ ***************************/
 
 /**
  * 药箱列表获取
@@ -316,8 +316,8 @@ export const setMachines = params =>
   axios.post('/wechatMedicineChestInfo/api/setUpMedicineChestCity', params)
 
 /***************************
- ******** 分类管理接口 ******
- **************************/
+ ******** 分类管理接口 *******
+ ***************************/
 
 /**
  * 获取所有城市
@@ -346,3 +346,25 @@ export const setCityMedicineDrugType = params =>
  */
 export const getDrugClassification = () =>
   axios.get('/wechatDrugInfo/query/getAllDrugClassification')
+
+/***************************
+ ******** 订单管理接口 *******
+ ***************************/
+
+/**
+ * 获取所有订单
+ * @param {*} params
+ */
+export const getOrders = params => axios.get('/wechatOrder/query/getOrderManageList', params)
+
+/**
+ * 获取订单详情
+ * @param {*} params
+ */
+export const getOrder = params => axios.get('/wechatDrugOrder/query/getOrderDetailList', params)
+
+/**
+ * 获取订单数量
+ * @param {*} params
+ */
+export const getOrdersCount = params => axios.get('/wechatOrder/query/getOrderManageInfo', params)

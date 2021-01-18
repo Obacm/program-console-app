@@ -6,7 +6,8 @@ export const navs = {
   doctor: '药师咨询',
   customer: '售后客服',
   machine: '药箱管理',
-  category: '分类管理'
+  category: '分类管理',
+  order: '订单管理'
 }
 
 export const messages = {
