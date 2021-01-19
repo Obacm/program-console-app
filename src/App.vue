@@ -128,7 +128,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 #components-layout-demo-top-side-2 .logo {
   width: 200px;
   height: 40px;
@@ -140,7 +140,19 @@ export default {
 .table-search-wrapper {
   margin-bottom: 15px;
 }
-.table-operator {
+.table-operator .titles {
+  margin-bottom: 15px;
+  text-align: left;
+  margin-left: 15px;
+  float: left;
+  span {
+    margin-right: 15px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+  }
+}
+.table-operator .operators {
   margin-bottom: 15px;
   text-align: right;
 }

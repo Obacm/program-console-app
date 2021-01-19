@@ -2,25 +2,29 @@
   <div>
     <div v-if="$route.meta.visible">
       <div class="table-operator">
-        <a-button type="primary" @click="onNavigationSave">{{ $t('describes.BPrimary') }}</a-button>
-        <a-button type="default" class="button-left" @click="onNavigationUpdate">{{
-          $t('describes.BDefault')
-        }}</a-button>
-        <a-button
-          class="button-left"
-          @click="onAnyOff"
-          style="background-color: #ffc107; color: #fff"
-          >{{ $t('describes.BOff') }}</a-button
-        >
-        <a-button
-          class="button-left"
-          @click="onAnyPut"
-          style="background-color: #28a745; color: #fff"
-          >{{ $t('describes.BPut') }}</a-button
-        >
-        <a-button type="danger" class="button-left" @click="onAnyDelete">{{
-          $t('describes.BDanger')
-        }}</a-button>
+        <div class="operators">
+          <a-button type="primary" @click="onNavigationSave">{{
+            $t('describes.BPrimary')
+          }}</a-button>
+          <a-button type="default" class="button-left" @click="onNavigationUpdate">{{
+            $t('describes.BDefault')
+          }}</a-button>
+          <a-button
+            class="button-left"
+            @click="onAnyOff"
+            style="background-color: #ffc107; color: #fff"
+            >{{ $t('describes.BOff') }}</a-button
+          >
+          <a-button
+            class="button-left"
+            @click="onAnyPut"
+            style="background-color: #28a745; color: #fff"
+            >{{ $t('describes.BPut') }}</a-button
+          >
+          <a-button type="danger" class="button-left" @click="onAnyDelete">{{
+            $t('describes.BDanger')
+          }}</a-button>
+        </div>
       </div>
       <a-spin :spinning="spinning">
         <a-table

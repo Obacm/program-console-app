@@ -46,8 +46,10 @@
         </a-input-group>
       </div>
       <div class="table-operator">
-        <a-button type="primary" @click="onSyncMachines">同步</a-button>
-        <a-button type="danger" class="button-left" @click="onModelSave">设置</a-button>
+        <div class="operators">
+          <a-button type="primary" @click="onSyncMachines">同步</a-button>
+          <a-button type="danger" class="button-left" @click="onModelSave">设置</a-button>
+        </div>
       </div>
       <a-spin :spinning="spinning">
         <a-table
