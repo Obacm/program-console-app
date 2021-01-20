@@ -109,6 +109,11 @@
           </a-table-column>
           <a-table-column title="退款金额" data-index="returnPrice"></a-table-column>
           <a-table-column title="退款状态" data-index="returnStatus"></a-table-column>
+          <a-table-column title="退款时间">
+            <template slot-scope="text, item">
+              <span v-if="item.orderStatus == 4" style="color: #ee9a00">{{ item.updateDate }}</span>
+            </template>
+          </a-table-column>
           <a-table-column title="出货状态" data-index="sellDrugStatus"></a-table-column>
           <a-table-column title="创建时间" data-index="createDate"></a-table-column>
         </a-table>

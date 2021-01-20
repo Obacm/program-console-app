@@ -21,16 +21,6 @@
             <span v-if="item.status == 5" style="color: #28a745">{{ item.updateDate }}</span>
           </template>
         </a-table-column>
-        <a-table-column title="退款时间">
-          <template slot-scope="text, item">
-            <span v-if="item.status == 4" style="color: #ee9a00">{{ item.updateDate }}</span>
-          </template>
-        </a-table-column>
-        <a-table-column title="操作">
-          <template slot-scope="text, item">
-            <span v-if="item.status == 4" style="color: #ee9a00">退款</span>
-          </template>
-        </a-table-column>
       </a-table>
     </a-spin>
   </div>

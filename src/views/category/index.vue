@@ -7,7 +7,7 @@
             v-model="provinceId"
             @change="handleProvinceChange"
             placeholder="请选择省份"
-            style="width: 15%; margin-left: 20px;"
+            style="width: 15%;"
           >
             <a-select-option v-for="province in provinces" :key="province.id">
               {{ province.name }}
@@ -125,7 +125,7 @@ import Computed from '@/components/Computed'
 export default {
   name: 'category',
   metaInfo: {
-    title: '药箱管理',
+    title: '分类管理',
     titleTemplate: '%s | 中康智慧药箱'
   },
   ...Computed,

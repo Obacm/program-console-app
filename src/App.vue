@@ -140,23 +140,26 @@ export default {
 .table-search-wrapper {
   margin-bottom: 15px;
 }
-.table-operator .titles {
-  margin-bottom: 15px;
-  text-align: left;
-  margin-left: 15px;
-  float: left;
-  span {
-    margin-right: 15px;
-    color: #000;
-    font-size: 15px;
-    font-weight: 500;
+.table-operator {
+  .titles {
+    margin-bottom: 15px;
+    text-align: left;
+    margin-left: 15px;
+    float: left;
+    span {
+      margin-right: 15px;
+      color: #000;
+      font-size: 15px;
+      font-weight: 500;
+    }
+  }
+
+  .operators {
+    margin-bottom: 15px;
+    text-align: right;
   }
 }
-.table-operator .operators {
-  margin-bottom: 15px;
-  text-align: right;
-}
-.button-left {
+.table-operator .button-left {
   margin-left: 15px;
 }
 .button-link {
