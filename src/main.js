@@ -6,6 +6,7 @@ import { uploadUrl } from '@/api'
 import i18n from '@/i18n'
 import VueMeta from 'vue-meta'
 import lodash from 'lodash'
+import '@/global.less'
 import {
   Layout,
   Button,

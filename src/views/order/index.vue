@@ -39,7 +39,7 @@
             已关闭（{{ count.closeOrderNum }}）
           </a-button>
           <a-range-picker v-model="date" format="YYYY-MM-DD" @change="onPickerChange" />
-          <a-button type="primary" @click="getOrders" style="margin-left: 20px;">查询</a-button>
+          <a-button type="primary" @click="onGetOrders" style="margin-left: 20px;">查询</a-button>
         </a-input-group>
       </div>
       <div class="table-operator">
@@ -98,20 +98,16 @@
           <a-table-column title="业务类型" data-index="businessType"></a-table-column>
           <a-table-column title="支付方式" data-index="payType"></a-table-column>
           <a-table-column title="付款人" data-index="payUser"></a-table-column>
-          <a-table-column title="订单状态" data-index="orderStatus">
-            <template slot-scope="orderStatus">
-              <span v-if="orderStatus == 1" style="color: #e5e5e5">待支付</span>
-              <span v-if="orderStatus == 2" style="color: #4f94cd">已支付 待取货</span>
-              <span v-if="orderStatus == 3" style="color: #ee9a00">取消订单</span>
-              <span v-if="orderStatus == 4" style="color: #cd3333">退货</span>
-              <span v-if="orderStatus == 5" style="color: #28a745">已完成</span>
+          <a-table-column title="订单状态" data-index="orderStatus"> </a-table-column>
+          <a-table-column title="退款金额" data-index="returnPrice">
+            <template slot-scope="returnPrice">
+              {{ returnPrice ? '¥ ' + returnPrice : returnPrice }}
             </template>
           </a-table-column>
-          <a-table-column title="退款金额" data-index="returnPrice"></a-table-column>
           <a-table-column title="退款状态" data-index="returnStatus"></a-table-column>
           <a-table-column title="退款时间">
             <template slot-scope="text, item">
-              <span v-if="item.orderStatus == 4" style="color: #ee9a00">{{ item.updateDate }}</span>
+              <span v-if="item.orderTempStatus == 2">{{ item.updateDate }}</span>
             </template>
           </a-table-column>
           <a-table-column title="出货状态" data-index="sellDrugStatus"></a-table-column>
@@ -163,10 +159,17 @@ export default {
   mounted() {
     this.getOrdersCount()
     this.getOrders()
+    setInterval(() => {
+      this.getOrdersCount()
+    }, 60 * 1000)
   },
   methods: {
     setHistories(history) {
       this.$store.commit('SET_HOSTORIES', { history: history, type: false })
+    },
+    onGetOrders() {
+      this.pagination.current = 1
+      this.getOrders()
     },
     async getOrders() {
       let response = await getOrders({
@@ -234,6 +237,7 @@ export default {
             '订单状态',
             '退款金额',
             '退款状态',
+            '退款时间',
             '出货状态',
             '创建时间'
           ]
@@ -250,6 +254,7 @@ export default {
             'orderStatus',
             'returnTotalPrice',
             'returnStatus',
+            'updateDate',
             'sellDrugStatus',
             'createDate'
           ]
@@ -286,6 +291,7 @@ export default {
     onChange(key, status) {
       this.activeKey = key
       this.status = status
+      this.onGetOrders()
     },
     setDateEmpty() {
       this.startDate = null

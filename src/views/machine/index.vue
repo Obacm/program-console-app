@@ -39,7 +39,7 @@
             v-model="medicineNo"
             placeholder="请输入药箱编号"
             enter-button="查询"
-            @search="getMachines"
+            @search="onGetMachines"
             style="width: 25%; margin-left: 20px;"
           />
           <a-button type="danger" @click="onClear" style="margin-left: 20px;">清空</a-button>
@@ -165,11 +165,11 @@ export default {
     this.getMachines()
   },
   methods: {
+    onGetMachines() {
+      this.pagination.current = 1
+      this.getMachines()
+    },
     async getMachines() {
-      if (this.medicineNo) {
-        this.pagination.current = 1
-      }
-
       let response = await getMachines({
         isSetCity: this.isSetCity,
         provinceId: this.provinceId,
